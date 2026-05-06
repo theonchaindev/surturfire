@@ -2,10 +2,10 @@ import { Flame, Phone, MapPin, Mail } from "lucide-react";
 
 const footerLinks = {
   Services: [
-    { label: "Fire Suppression", href: "#suppression" },
-    { label: "Fire Detection", href: "#detection" },
-    { label: "Fire Extinguisher", href: "#extinguishers" },
-    { label: "Emergency Lighting", href: "#lighting" },
+    { label: "Fire Suppression", href: "/gas-suppression" },
+    { label: "Fire Detection", href: "/fire-detection" },
+    { label: "Fire Extinguisher", href: "/fire-extinguisher" },
+    { label: "Emergency Lighting", href: "/emergency-lighting" },
   ],
   Certifications: [
     { label: "BAFE", href: "#certifications" },

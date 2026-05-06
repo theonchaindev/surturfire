@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { Menu, X, Flame } from "lucide-react";
 
 const links = [
-  { label: "Fire Suppression", href: "#suppression" },
-  { label: "Fire Detection", href: "#detection" },
-  { label: "Fire Extinguishers", href: "#extinguishers" },
-  { label: "Emergency Lighting", href: "#lighting" },
-  { label: "About Us", href: "#certifications" },
+  { label: "Gas Suppression", href: "/gas-suppression" },
+  { label: "Fire Detection", href: "/fire-detection" },
+  { label: "Fire Extinguishers", href: "/fire-extinguisher" },
+  { label: "Emergency Lighting", href: "/emergency-lighting" },
+  { label: "About Us", href: "/#certifications" },
 ];
 
 export default function Navbar() {

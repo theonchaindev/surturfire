@@ -23,7 +23,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-28 px-6 bg-[#0e0e10] relative">
+    <section id="contact" className="py-28 px-6 bg-[#1c1c22] relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_100%,rgba(192,57,43,0.07),transparent)]" />
 
       <div className="max-w-6xl mx-auto relative">
@@ -50,7 +50,7 @@ export default function ContactSection() {
                   <a
                     key={c.label}
                     href={c.href}
-                    className="flex items-start gap-4 rounded-xl p-5 border border-white/[0.1] bg-white/[0.04] hover:border-[#c0392b]/25 hover:bg-white/[0.07] transition-all group"
+                    className="flex items-start gap-4 rounded-xl p-5 border border-white/[0.12] bg-[#222228] hover:border-[#c0392b]/35 hover:bg-[#272730] transition-all group"
                   >
                     <div className="w-10 h-10 rounded-lg bg-[#c0392b]/10 border border-[#c0392b]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c0392b]/18 transition-colors">
                       <Icon className="w-5 h-5 text-[#c0392b]" />
@@ -64,7 +64,7 @@ export default function ContactSection() {
               })}
             </div>
 
-            <div className="rounded-xl p-5 text-sm text-[#a8a8b4] space-y-1 border border-white/[0.08] bg-white/[0.03]">
+            <div className="rounded-xl p-5 text-sm text-[#b4b4c0] space-y-1 border border-white/[0.12] bg-[#222228]">
               <div className="font-semibold text-white mb-2">Company Information</div>
               <div>Surtur Fire Ltd</div>
               <div>Company Registration No: 14030343</div>
@@ -73,7 +73,7 @@ export default function ContactSection() {
           </div>
 
           {/* Form */}
-          <div className="rounded-2xl p-8 border border-white/[0.1] bg-white/[0.04]">
+          <div className="rounded-2xl p-8 border border-white/[0.12] bg-[#222228]">
             {!sent ? (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">

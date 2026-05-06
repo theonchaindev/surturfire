@@ -32,7 +32,7 @@ export default function Newsletter() {
   }
 
   return (
-    <section id="newsletter" className="py-24 px-6 bg-[#111113] relative overflow-hidden" ref={ref}>
+    <section id="newsletter" className="py-24 px-6 bg-[#18181c] relative overflow-hidden" ref={ref}>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(192,57,43,0.06),transparent)]" />
 
       <div

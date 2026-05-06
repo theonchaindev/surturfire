@@ -77,7 +77,7 @@ function StarRating({ count }: { count: number }) {
 
 function TestimonialCard({ t }: { t: (typeof testimonials)[0] }) {
   return (
-    <div className="mx-3 w-72 flex-shrink-0 rounded-xl p-5 border border-white/[0.1] bg-white/[0.04] hover:border-white/[0.2] hover:bg-white/[0.07] transition-colors duration-300">
+    <div className="mx-3 w-72 flex-shrink-0 rounded-xl p-5 border border-white/[0.12] bg-[#222228] hover:border-white/[0.25] hover:bg-[#272730] transition-colors duration-300">
       <StarRating count={t.stars} />
       <p className="text-[#a8a8b4] text-sm leading-relaxed mt-3 mb-4">&ldquo;{t.quote}&rdquo;</p>
       <div>
@@ -93,7 +93,7 @@ export default function Testimonials() {
   const row2 = [...testimonials.slice(5), ...testimonials.slice(5)];
 
   return (
-    <section className="py-28 overflow-hidden bg-[#0e0e10]">
+    <section className="py-28 overflow-hidden bg-[#1c1c22]">
       <div className="text-center mb-14 px-6">
         <p className="text-[#c0392b] font-semibold text-sm uppercase tracking-widest mb-4">
           Client Reviews

@@ -32,7 +32,7 @@ export default function Certifications() {
   }, []);
 
   return (
-    <section id="certifications" className="py-28 px-6 bg-[#111113]" ref={ref}>
+    <section id="certifications" className="py-28 px-6 bg-[#18181c]" ref={ref}>
       <div className="max-w-5xl mx-auto">
         <div
           className="cert-item text-center mb-14"
@@ -56,7 +56,7 @@ export default function Certifications() {
             return (
               <div
                 key={cert.name}
-                className="cert-item rounded-2xl p-6 text-center group hover:-translate-y-1 transition-all duration-300 border border-white/[0.1] bg-white/[0.04] hover:border-white/[0.2] hover:bg-white/[0.07]"
+                className="cert-item rounded-2xl p-6 text-center group hover:-translate-y-1 transition-all duration-300 border border-white/[0.12] bg-[#222228] hover:border-white/[0.25] hover:bg-[#272730]"
                 style={{ opacity: 0, transform: "translateY(20px)", transition: "opacity 0.5s ease, transform 0.5s ease" }}
               >
                 <div

@@ -26,7 +26,7 @@ const features = [
 
 function VisualCard({ side, color }: { side: string; color: string }) {
   return (
-    <div className="relative h-72 md:h-full min-h-72 rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.03]">
+    <div className="relative h-72 md:h-full min-h-72 rounded-2xl overflow-hidden border border-white/[0.12] bg-[#222228]">
       <div className={`absolute inset-0 bg-gradient-to-br ${side === "left" ? "from-[#c0392b]/15 via-[#160a0a] to-[#111113]" : "from-[#e67e22]/12 via-[#140e08] to-[#111113]"}`} />
       <div
         className="absolute inset-0 opacity-[0.05]"
@@ -75,7 +75,7 @@ export default function FeaturedServices() {
   }, []);
 
   return (
-    <section id="deep-dive" className="py-28 px-6 bg-[#0e0e10]">
+    <section id="deep-dive" className="py-28 px-6 bg-[#1c1c22]">
       <div className="max-w-7xl mx-auto" ref={ref}>
         <div
           className="feat-item text-center mb-16"

@@ -55,7 +55,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className="py-28 px-6 bg-[#111113] relative">
+    <section id="services" className="py-28 px-6 bg-[#18181c] relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-[#c0392b] font-semibold text-sm uppercase tracking-widest mb-4">
@@ -77,7 +77,7 @@ export default function Services() {
               <div
                 key={svc.id}
                 id={svc.id}
-                className="service-card rounded-2xl p-8 group transition-all duration-300 hover:-translate-y-1 cursor-pointer border border-white/[0.1] bg-white/[0.04] hover:border-[#c0392b]/35 hover:bg-white/[0.07]"
+                className="service-card rounded-2xl p-8 group transition-all duration-300 hover:-translate-y-1 cursor-pointer border border-white/[0.12] bg-[#222228] hover:border-[#c0392b]/40 hover:bg-[#272730]"
                 style={{
                   opacity: 0,
                   transform: "translateY(24px)",
@@ -92,7 +92,7 @@ export default function Services() {
                     <h3 className="text-xl font-bold mb-3 text-white group-hover:text-[#e67e22] transition-colors">
                       {svc.name}
                     </h3>
-                    <p className="text-[#a8a8b4] leading-relaxed mb-4">{svc.desc}</p>
+                    <p className="text-[#b4b4c0] leading-relaxed mb-4">{svc.desc}</p>
                     <span className="inline-flex items-center gap-1.5 text-sm text-[#c0392b] font-semibold hover:text-[#e67e22] transition-colors group/link cursor-default">
                       Read more
                       <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />

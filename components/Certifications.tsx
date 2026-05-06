@@ -4,30 +4,10 @@ import { useEffect, useRef } from "react";
 import { ShieldCheck, Award, Star, Zap } from "lucide-react";
 
 const certs = [
-  {
-    icon: ShieldCheck,
-    name: "BAFE",
-    full: "British Approvals for Fire Equipment",
-    color: "#c0392b",
-  },
-  {
-    icon: Award,
-    name: "Safe Contractor",
-    full: "Health & Safety Accreditation",
-    color: "#e67e22",
-  },
-  {
-    icon: Star,
-    name: "LPCB",
-    full: "Loss Prevention Certification Board",
-    color: "#c0392b",
-  },
-  {
-    icon: Zap,
-    name: "FIA",
-    full: "Fire Industry Association Member",
-    color: "#e67e22",
-  },
+  { icon: ShieldCheck, name: "BAFE", full: "British Approvals for Fire Equipment", color: "#c0392b" },
+  { icon: Award, name: "Safe Contractor", full: "Health & Safety Accreditation", color: "#e67e22" },
+  { icon: Star, name: "LPCB", full: "Loss Prevention Certification Board", color: "#c0392b" },
+  { icon: Zap, name: "FIA", full: "Fire Industry Association Member", color: "#e67e22" },
 ];
 
 export default function Certifications() {
@@ -38,12 +18,8 @@ export default function Certifications() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const items = entry.target.querySelectorAll<HTMLElement>(".cert-item");
-            items.forEach((el, i) => {
-              setTimeout(() => {
-                el.style.opacity = "1";
-                el.style.transform = "translateY(0)";
-              }, i * 100);
+            entry.target.querySelectorAll<HTMLElement>(".cert-item").forEach((el, i) => {
+              setTimeout(() => { el.style.opacity = "1"; el.style.transform = "translateY(0)"; }, i * 100);
             });
             observer.unobserve(entry.target);
           }
@@ -56,7 +32,7 @@ export default function Certifications() {
   }, []);
 
   return (
-    <section id="certifications" className="py-28 px-6 bg-[#0a0a0a]" ref={ref}>
+    <section id="certifications" className="py-28 px-6 bg-[#111113]" ref={ref}>
       <div className="max-w-5xl mx-auto">
         <div
           className="cert-item text-center mb-14"
@@ -65,12 +41,12 @@ export default function Certifications() {
           <p className="text-[#c0392b] font-semibold text-sm uppercase tracking-widest mb-4">
             Accreditations
           </p>
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5">
-            Proud to be Certified.
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5 text-white">
+            Proud to be certified.
           </h2>
-          <p className="text-[#9ca3af] text-lg max-w-xl mx-auto">
-            Our certifications demonstrate our commitment to the highest standards
-            of fire safety competence and service delivery.
+          <p className="text-[#a8a8b4] text-lg max-w-2xl mx-auto leading-relaxed">
+            Trusted by clients across the UK, we are experts in the supply, maintenance, and design
+            of fire safety systems to safeguard sites against the dangers of fire.
           </p>
         </div>
 
@@ -80,28 +56,21 @@ export default function Certifications() {
             return (
               <div
                 key={cert.name}
-                className="cert-item glass-card rounded-2xl p-6 text-center hover:border-white/20 hover:-translate-y-1 transition-all duration-300 group"
-                style={{ opacity: 0, transform: "translateY(20px)", transition: "opacity 0.5s ease, transform 0.5s ease, border 0.3s, translate 0.3s" }}
+                className="cert-item rounded-2xl p-6 text-center group hover:-translate-y-1 transition-all duration-300 border border-white/[0.1] bg-white/[0.04] hover:border-white/[0.2] hover:bg-white/[0.07]"
+                style={{ opacity: 0, transform: "translateY(20px)", transition: "opacity 0.5s ease, transform 0.5s ease" }}
               >
                 <div
                   className="w-14 h-14 rounded-xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform"
-                  style={{
-                    background: `${cert.color}18`,
-                    border: `1px solid ${cert.color}30`,
-                  }}
+                  style={{ background: `${cert.color}14`, border: `1px solid ${cert.color}28` }}
                 >
                   <Icon className="w-7 h-7" style={{ color: cert.color }} />
                 </div>
-                <div className="font-black text-lg mb-1">{cert.name}</div>
-                <div className="text-[#9ca3af] text-xs leading-tight">{cert.full}</div>
+                <div className="font-black text-lg mb-1 text-white">{cert.name}</div>
+                <div className="text-[#a8a8b4] text-xs leading-tight">{cert.full}</div>
               </div>
             );
           })}
         </div>
-
-        <p className="text-center text-[#9ca3af] mt-10 text-sm">
-          Trusted by clients across the UK for over a decade of fire safety excellence.
-        </p>
       </div>
     </section>
   );

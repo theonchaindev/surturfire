@@ -25,7 +25,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0d0d0d]/90 backdrop-blur-md border-b border-white/[0.06] shadow-lg"
+          ? "bg-[#111113]/95 backdrop-blur-md border-b border-white/[0.08] shadow-xl"
           : "bg-transparent"
       }`}
     >
@@ -48,7 +48,7 @@ export default function Navbar() {
             <a
               key={l.label}
               href={l.href}
-              className="text-sm text-[#9ca3af] hover:text-white transition-colors font-medium"
+              className="text-sm text-[#b0b0b8] hover:text-white transition-colors font-medium"
             >
               {l.label}
             </a>
@@ -56,12 +56,18 @@ export default function Navbar() {
         </div>
 
         {/* CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
           <a
             href="#contact"
-            className="text-sm font-semibold bg-[#c0392b] hover:bg-[#a93226] text-white px-5 py-2 rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(192,57,43,0.4)]"
+            className="text-sm font-medium text-[#b0b0b8] hover:text-white transition-colors"
           >
             Contact Us
+          </a>
+          <a
+            href="#wizard"
+            className="text-sm font-semibold bg-[#c0392b] hover:bg-[#a93226] text-white px-5 py-2 rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(192,57,43,0.4)]"
+          >
+            Get a Quote
           </a>
         </div>
 
@@ -77,7 +83,7 @@ export default function Navbar() {
 
       {/* Mobile overlay */}
       {open && (
-        <div className="md:hidden fixed inset-0 top-16 bg-[#0d0d0d]/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 z-40">
+        <div className="md:hidden fixed inset-0 top-16 bg-[#111113]/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 z-40">
           {links.map((l) => (
             <a
               key={l.label}

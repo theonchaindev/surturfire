@@ -3,72 +3,62 @@
 const testimonials = [
   {
     name: "Kevin Anderson",
-    role: "Facilities Manager",
-    quote:
-      "Surtur Fire installed our entire detection system within a tight deadline. Exceptional professionalism from start to finish.",
+    role: "Client",
+    quote: "Surtur Fire's expertise in gas suppression systems is unparalleled. Thank your for your commitment to safety and reliability.",
     stars: 5,
   },
   {
     name: "Olivia Smith",
-    role: "Operations Director",
-    quote:
-      "Outstanding service. Their engineers are knowledgeable, tidy, and always on time. Fully recommend for any fire safety requirement.",
+    role: "Client",
+    quote: "Surtur Fire brought invaluable peace of mind to our home. The fire detection services were not only skillfully executed but also delivered with courtesy and respect.",
     stars: 5,
   },
   {
     name: "Terry Malone",
-    role: "Site Manager",
-    quote:
-      "We've used Surtur Fire for our annual maintenance for three years. Always thorough and the reports are detailed and clear.",
+    role: "Client",
+    quote: "Hats off to Surtur Fire! Your innovative fire detection technology has added an extra layer of security to our establishment.",
     stars: 5,
   },
   {
     name: "John Bennett",
-    role: "MD, Bennett Manufacturing",
-    quote:
-      "They replaced our ageing suppression system with minimal disruption to production. Excellent project management throughout.",
+    role: "Client",
+    quote: "Surtur Fire stands out for their exceptional service. The team's professionalism and efficiency make them our top choice for fire protection.",
     stars: 5,
   },
   {
     name: "Craig Haven",
-    role: "IT Director",
-    quote:
-      "Had our server room fitted with a gas suppression system. The team were clearly experts and the installation was flawless.",
+    role: "Client",
+    quote: "The expertise of Surtur Fire's team during the gas suppression system installation was truly impressive. They ensured a smooth process from start to finish.",
     stars: 5,
   },
   {
     name: "Lisa Turner",
-    role: "Care Home Manager",
-    quote:
-      "Surtur Fire understand the specific requirements for care settings. They're our go-to for all fire safety compliance needs.",
+    role: "Client",
+    quote: "A big thank you to Surtur Fire for their prompt response and thorough installation of our fire detection system. Your dedication to our safety is truly commendable.",
     stars: 5,
   },
   {
     name: "Brian Thompson",
-    role: "Building Manager",
-    quote:
-      "Rapid response when we had a system fault, and their emergency lighting service is second to none.",
+    role: "Client",
+    quote: "Surtur Fire, thank you for your exceptional service. The fire detection systems you installed at our office have made a significant impact on our safety.",
     stars: 5,
   },
   {
     name: "David Frank",
-    role: "Health & Safety Officer",
-    quote:
-      "Comprehensive audit report, clearly written and actionable. Helped us pass our inspection with zero issues.",
+    role: "Client",
+    quote: "A special thanks to Surtur Fire for their unwavering commitment to safety. The team's professionalism and attention to detail are truly commendable.",
     stars: 5,
   },
   {
     name: "Lee Riley",
-    role: "Head of Estates",
-    quote:
-      "From initial survey to sign-off, every step was handled professionally. The team genuinely care about fire safety.",
+    role: "Client",
+    quote: "Grateful to Surtur Fire for their meticulous approach in installing our fire detection system. Your team's expertise and responsiveness made a significant difference.",
     stars: 5,
   },
   {
     name: "Robert Green",
-    role: "Managing Director",
-    quote:
-      "Fair pricing, expert knowledge, and a team you can trust. Surtur Fire protect every premises in our portfolio.",
+    role: "Client",
+    quote: "Kudos to Surtur Fire for their prompt response and thoroughness in installing our fire detection system. Your dedication to our safety did not go unnoticed.",
     stars: 5,
   },
 ];
@@ -87,12 +77,12 @@ function StarRating({ count }: { count: number }) {
 
 function TestimonialCard({ t }: { t: (typeof testimonials)[0] }) {
   return (
-    <div className="glass-card rounded-xl p-5 mx-3 w-72 flex-shrink-0 hover:border-white/20 transition-colors duration-300">
+    <div className="mx-3 w-72 flex-shrink-0 rounded-xl p-5 border border-white/[0.1] bg-white/[0.04] hover:border-white/[0.2] hover:bg-white/[0.07] transition-colors duration-300">
       <StarRating count={t.stars} />
-      <p className="text-[#9ca3af] text-sm leading-relaxed mt-3 mb-4">&ldquo;{t.quote}&rdquo;</p>
+      <p className="text-[#a8a8b4] text-sm leading-relaxed mt-3 mb-4">&ldquo;{t.quote}&rdquo;</p>
       <div>
         <div className="text-sm font-semibold text-white">{t.name}</div>
-        <div className="text-xs text-[#9ca3af]">{t.role}</div>
+        <div className="text-xs text-[#a8a8b4]">{t.role}</div>
       </div>
     </div>
   );
@@ -103,34 +93,28 @@ export default function Testimonials() {
   const row2 = [...testimonials.slice(5), ...testimonials.slice(5)];
 
   return (
-    <section className="py-28 overflow-hidden">
+    <section className="py-28 overflow-hidden bg-[#0e0e10]">
       <div className="text-center mb-14 px-6">
         <p className="text-[#c0392b] font-semibold text-sm uppercase tracking-widest mb-4">
           Client Reviews
         </p>
-        <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5">
+        <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5 text-white">
           Trusted Across The UK
         </h2>
-        <p className="text-[#9ca3af] text-lg max-w-lg mx-auto">
+        <p className="text-[#a8a8b4] text-lg max-w-lg mx-auto">
           Don&apos;t just take our word for it — here&apos;s what our clients say.
         </p>
       </div>
 
-      {/* Row 1 — scrolls left */}
       <div className="overflow-hidden mb-4">
         <div className="marquee-l flex">
-          {row1.map((t, i) => (
-            <TestimonialCard key={`r1-${i}`} t={t} />
-          ))}
+          {row1.map((t, i) => <TestimonialCard key={`r1-${i}`} t={t} />)}
         </div>
       </div>
 
-      {/* Row 2 — scrolls right */}
       <div className="overflow-hidden">
         <div className="marquee-r flex">
-          {row2.map((t, i) => (
-            <TestimonialCard key={`r2-${i}`} t={t} />
-          ))}
+          {row2.map((t, i) => <TestimonialCard key={`r2-${i}`} t={t} />)}
         </div>
       </div>
     </section>

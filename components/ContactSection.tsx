@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Phone, MapPin, Mail, Send } from "lucide-react";
 
 const contactDetails = [
-  { icon: Phone, label: "Phone", value: "+44 7843 841219", href: "tel:+447843841219" },
-  { icon: MapPin, label: "Address", value: "22-24 Harborough Road, Northampton, NN2 7AZ", href: "#" },
-  { icon: Mail, label: "Email", value: "sales@surturfire.com", href: "mailto:sales@surturfire.com" },
+  { icon: Phone, label: "Call us", value: "+44 7843841219", href: "tel:+447843841219" },
+  { icon: MapPin, label: "Find us", value: "22-24 Harborough Road, Northampton, NN2 7AZ", href: "#" },
+  { icon: Mail, label: "Email us", value: "sales@surturfire.com", href: "mailto:sales@surturfire.com" },
 ];
 
 export default function ContactSection() {
@@ -23,40 +23,40 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-28 px-6 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_100%,rgba(192,57,43,0.08),transparent)]" />
+    <section id="contact" className="py-28 px-6 bg-[#0e0e10] relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_100%,rgba(192,57,43,0.07),transparent)]" />
 
       <div className="max-w-6xl mx-auto relative">
         <div className="text-center mb-16">
           <p className="text-[#c0392b] font-semibold text-sm uppercase tracking-widest mb-4">
             Get in Touch
           </p>
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5">
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5 text-white">
             Contact Surtur Fire
           </h2>
-          <p className="text-[#9ca3af] text-lg max-w-xl mx-auto">
-            Ready to protect your premises? Get in touch for a free, no-obligation
-            quote or to discuss your fire safety requirements.
+          <p className="text-[#a8a8b4] text-lg max-w-xl mx-auto">
+            Ready to protect your premises? Get in touch for a free, no-obligation quote or to
+            discuss your fire safety requirements.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-10">
           {/* Contact info */}
           <div>
-            <div className="space-y-5 mb-10">
+            <div className="space-y-4 mb-8">
               {contactDetails.map((c) => {
                 const Icon = c.icon;
                 return (
                   <a
                     key={c.label}
                     href={c.href}
-                    className="flex items-start gap-4 glass-card rounded-xl p-5 hover:border-[#c0392b]/25 transition-all group"
+                    className="flex items-start gap-4 rounded-xl p-5 border border-white/[0.1] bg-white/[0.04] hover:border-[#c0392b]/25 hover:bg-white/[0.07] transition-all group"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-[#c0392b]/10 border border-[#c0392b]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c0392b]/20 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-[#c0392b]/10 border border-[#c0392b]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c0392b]/18 transition-colors">
                       <Icon className="w-5 h-5 text-[#c0392b]" />
                     </div>
                     <div>
-                      <div className="text-xs text-[#9ca3af] font-medium mb-0.5">{c.label}</div>
+                      <div className="text-xs text-[#a8a8b4] font-medium mb-0.5">{c.label}</div>
                       <div className="text-sm text-white font-medium">{c.value}</div>
                     </div>
                   </a>
@@ -64,33 +64,32 @@ export default function ContactSection() {
               })}
             </div>
 
-            {/* Company details */}
-            <div className="glass-card rounded-xl p-5 text-sm text-[#9ca3af] space-y-1">
+            <div className="rounded-xl p-5 text-sm text-[#a8a8b4] space-y-1 border border-white/[0.08] bg-white/[0.03]">
               <div className="font-semibold text-white mb-2">Company Information</div>
               <div>Surtur Fire Ltd</div>
-              <div>Company Reg: 14030343</div>
-              <div>VAT: 410913924</div>
+              <div>Company Registration No: 14030343</div>
+              <div>VAT Registration No: 410913924</div>
             </div>
           </div>
 
           {/* Form */}
-          <div className="glass-card rounded-2xl p-8">
+          <div className="rounded-2xl p-8 border border-white/[0.1] bg-white/[0.04]">
             {!sent ? (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-[#9ca3af] mb-1.5">Name</label>
+                    <label className="block text-xs font-medium text-[#a8a8b4] mb-1.5">Name</label>
                     <input
                       name="name"
                       value={form.name}
                       onChange={handleChange}
                       required
                       placeholder="John Smith"
-                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-[#9ca3af]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors"
+                      className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-3 text-white placeholder-[#a8a8b4]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-[#9ca3af] mb-1.5">Email</label>
+                    <label className="block text-xs font-medium text-[#a8a8b4] mb-1.5">Email</label>
                     <input
                       name="email"
                       type="email"
@@ -98,22 +97,22 @@ export default function ContactSection() {
                       onChange={handleChange}
                       required
                       placeholder="john@company.com"
-                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-[#9ca3af]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors"
+                      className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-3 text-white placeholder-[#a8a8b4]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#9ca3af] mb-1.5">Phone (optional)</label>
+                  <label className="block text-xs font-medium text-[#a8a8b4] mb-1.5">Phone (optional)</label>
                   <input
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+44 7000 000000"
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-[#9ca3af]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors"
+                    className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-3 text-white placeholder-[#a8a8b4]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#9ca3af] mb-1.5">Message</label>
+                  <label className="block text-xs font-medium text-[#a8a8b4] mb-1.5">Message</label>
                   <textarea
                     name="message"
                     value={form.message}
@@ -121,7 +120,7 @@ export default function ContactSection() {
                     required
                     rows={5}
                     placeholder="Tell us about your premises and fire safety requirements..."
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-[#9ca3af]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors resize-none"
+                    className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-3 text-white placeholder-[#a8a8b4]/50 text-sm focus:outline-none focus:border-[#c0392b]/50 transition-colors resize-none"
                   />
                 </div>
                 <button
@@ -137,8 +136,8 @@ export default function ContactSection() {
                 <div className="w-16 h-16 rounded-full bg-[#c0392b]/15 border border-[#c0392b]/30 flex items-center justify-center mb-5">
                   <Send className="w-7 h-7 text-[#c0392b]" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
-                <p className="text-[#9ca3af] text-sm max-w-xs">
+                <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
+                <p className="text-[#a8a8b4] text-sm max-w-xs">
                   Thanks for reaching out. We&apos;ll get back to you within one business day.
                 </p>
               </div>

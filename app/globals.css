@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0d0d0d;
+  --crimson: #c0392b;
+  --ember: #e67e22;
+  --text: #f5f5f5;
+  --muted: #9ca3af;
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Ember particles */
+@keyframes ember-rise {
+  0%   { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.9; }
+  40%  { opacity: 0.5; }
+  100% { transform: translateY(-90vh) translateX(var(--x, 30px)) scale(0.05); opacity: 0; }
+}
+
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  background: #e67e22;
+  box-shadow: 0 0 8px 3px rgba(230,126,34,0.7);
+  animation: ember-rise linear infinite;
+  pointer-events: none;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Testimonials marquee */
+@keyframes marquee-l {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-r {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.marquee-l { animation: marquee-l 50s linear infinite; }
+.marquee-r { animation: marquee-r 50s linear infinite; }
+.marquee-l:hover,
+.marquee-r:hover { animation-play-state: paused; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #c0392b, #e67e22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

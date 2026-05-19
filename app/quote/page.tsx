@@ -3,12 +3,12 @@ import QuoteBuilder from "./QuoteBuilder";
 
 export const metadata: Metadata = {
   title: "Free Survey & Quote | Surtur Fire",
-  description: "Request a free fire safety survey from our BAFE-certified engineers. No obligation, response within 1 business day.",
+  description: "Request a free fire safety survey from our BAFE-certified engineers. No obligation — we&apos;ll assess your premises and recommend the right systems.",
 };
 
 export default function QuotePage() {
   return (
-    <div style={{ background: "#111111", minHeight: "100vh", paddingTop: "72px" }}>
+    <div style={{ background: "var(--bg-soft)", minHeight: "100vh", paddingTop: "68px" }}>
       <QuoteBuilder />
     </div>
   );

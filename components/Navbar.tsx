@@ -1,118 +1,137 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { href: "/services#suppression", label: "Fire Suppression" },
-  { href: "/services#detection", label: "Fire Detection" },
-  { href: "/services#extinguishers", label: "Fire Extinguishers" },
-  { href: "/services#lighting", label: "Emergency Lighting" },
+const links = [
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", fn, { passive: true });
+    fn();
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  const solid = scrolled || open;
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed inset-x-0 top-0 z-50 transition-all duration-300"
       style={{
-        background: "#111111",
-        borderBottom: "1px solid rgba(255,255,255,0.07)",
+        background: solid ? "rgba(255,255,255,0.97)" : "transparent",
+        backdropFilter: solid ? "blur(12px)" : "none",
+        borderBottom: solid ? "1px solid var(--border)" : "1px solid transparent",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16 lg:h-18">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between" style={{ height: "68px" }}>
+
         {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
-          <Image
-            src="https://cdn.prod.website-files.com/63dbb705fb1dc0446f72376f/63ecd662433aca29cd34d288_output-onlinepngtools.png"
-            alt="Surtur Fire"
-            width={120}
-            height={40}
-            style={{ objectFit: "contain" }}
-            priority
-          />
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
+          <div
+            style={{
+              width: "32px", height: "32px", borderRadius: "6px",
+              background: "var(--red)", display: "flex",
+              alignItems: "center", justifyContent: "center", flexShrink: 0,
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1.5C8 1.5 11.5 5.5 11.5 8.5C11.5 10.8 10 12.5 8 12.5C6 12.5 4.5 10.8 4.5 8.5C4.5 7 5.5 6 5.5 6C5.5 7.5 7.5 8.2 8 7C8.5 9 7.5 10.5 6.5 10.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <span style={{ fontWeight: 700, fontSize: "1rem", color: solid ? "var(--ink)" : "#fff", letterSpacing: "-0.02em", transition: "color 0.3s" }}>
+            Surtur<span style={{ color: "var(--red)" }}>Fire</span>
+          </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden xl:flex items-center gap-6">
-          {navLinks.map((link) => (
+        {/* Desktop links */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {links.map((l) => (
             <Link
-              key={link.href}
-              href={link.href}
-              className="link-hover text-xs font-medium tracking-wide transition-colors"
-              style={{ color: "rgba(255,255,255,0.6)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")}
+              key={l.href}
+              href={l.href}
+              style={{
+                fontSize: "0.875rem", fontWeight: 500,
+                color: pathname === l.href
+                  ? (solid ? "var(--ink)" : "#fff")
+                  : (solid ? "var(--ink-3)" : "rgba(255,255,255,0.65)"),
+                textDecoration: "none", transition: "color 0.15s",
+              }}
             >
-              {link.label}
+              {l.label}
             </Link>
           ))}
         </nav>
 
-        {/* Right */}
+        {/* CTA */}
         <div className="hidden lg:flex items-center gap-5">
           <a
             href="tel:+447843841219"
-            className="text-xs font-medium transition-colors"
-            style={{ color: "rgba(255,255,255,0.5)" }}
+            style={{
+              fontSize: "0.825rem", fontWeight: 500, textDecoration: "none",
+              color: solid ? "var(--ink-3)" : "rgba(255,255,255,0.55)",
+              transition: "color 0.3s",
+            }}
           >
             +44 7843 841219
           </a>
-          <Link href="/quote" className="btn-red" style={{ fontSize: "0.75rem", padding: "10px 20px" }}>
+          <Link href="/quote" className="btn btn-primary" style={{ fontSize: "0.82rem", padding: "9px 20px" }}>
             Free Survey
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Hamburger */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen((o) => !o)}
+          className="lg:hidden"
+          onClick={() => setOpen((o) => !o)}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: "8px", display: "flex", flexDirection: "column", gap: "5px" }}
           aria-label="Toggle menu"
         >
-          <span
-            className="block h-0.5 w-6 bg-white transition-transform duration-200"
-            style={{ transform: menuOpen ? "rotate(45deg) translate(3px, 4px)" : "none" }}
-          />
-          <span
-            className="block h-0.5 w-6 bg-white transition-opacity duration-200"
-            style={{ opacity: menuOpen ? 0 : 1 }}
-          />
-          <span
-            className="block h-0.5 w-6 bg-white transition-transform duration-200"
-            style={{ transform: menuOpen ? "rotate(-45deg) translate(3px, -4px)" : "none" }}
-          />
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              style={{
+                display: "block", width: "22px", height: "2px",
+                background: solid ? "var(--ink)" : "#fff",
+                borderRadius: "2px",
+                transition: "all 0.2s",
+                transform: open && i === 0 ? "rotate(45deg) translate(5px, 5px)" : open && i === 2 ? "rotate(-45deg) translate(5px, -5px)" : "none",
+                opacity: open && i === 1 ? 0 : 1,
+              }}
+            />
+          ))}
         </button>
       </div>
 
       {/* Mobile menu */}
       <div
         className="lg:hidden overflow-hidden transition-all duration-300"
-        style={{ maxHeight: menuOpen ? "500px" : "0", background: "#111111" }}
+        style={{ maxHeight: open ? "300px" : "0", background: "rgba(255,255,255,0.97)" }}
       >
-        <nav className="flex flex-col px-6 pb-8 pt-4 gap-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-base font-medium text-white/80 hover:text-white transition-colors"
-            >
-              {link.label}
+        <div style={{ borderTop: "1px solid var(--border)" }}>
+          <nav className="flex flex-col px-6 py-6 gap-5">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} style={{ fontSize: "1.05rem", fontWeight: 600, color: "var(--ink)", textDecoration: "none" }}>
+                {l.label}
+              </Link>
+            ))}
+            <Link href="/quote" className="btn btn-primary" style={{ width: "fit-content" }}>
+              Free Survey
             </Link>
-          ))}
-          <div className="pt-2 flex flex-col gap-3">
-            <a href="tel:+447843841219" className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-              +44 7843 841219
-            </a>
-            <Link href="/quote" className="btn-red w-fit">Get Free Survey →</Link>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
     </header>
   );

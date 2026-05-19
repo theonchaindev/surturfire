@@ -5,123 +5,132 @@ import AnimateIn from "@/components/AnimateIn";
 import LeadCaptureBanner from "@/components/LeadCaptureBanner";
 
 export const metadata: Metadata = {
-  title: "Project Portfolio | Surtur Fire",
-  description: "Browse Surtur Fire's recent fire safety installations across the UK — suppression, detection, extinguishers, and emergency lighting.",
+  title: "Projects | Surtur Fire — Fire Safety Installations UK",
+  description: "Browse our portfolio of completed fire safety installations across the UK — suppression systems, detection, extinguishers, and emergency lighting.",
 };
 
 const projects = [
   {
     title: "Data Centre Gas Suppression",
     location: "Northampton",
-    tag: "Fire Suppression",
-    desc: "FM200 clean agent suppression system protecting critical IT infrastructure. Full design, supply, and commissioning.",
-    img: "https://cdn.prod.website-files.com/63dbb705fb1dc0446f72376f/640b1f2c44ffd0851b8106c4_SurturFire%20Image.png",
+    category: "Fire Suppression",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85",
+    desc: "FM-200 clean agent suppression system protecting 2,400m² of critical IT infrastructure. Full design, supply, commissioning, and annual maintenance contract.",
+    large: true,
   },
   {
     title: "Multi-Floor Office Detection",
     location: "Birmingham",
-    tag: "Fire Detection",
-    desc: "Addressable fire detection system across 5 floors, 200+ devices, fully BS 5839 compliant.",
-    img: "https://cdn.prod.website-files.com/63dbb705fb1dc0446f72376f/65c608e62b18a29e3046ef99_iStock-1348046400.jpg",
+    category: "Fire Detection",
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=85",
+    desc: "Addressable fire detection across 6 floors, 240+ devices, fully BS 5839 compliant.",
+    large: false,
   },
   {
     title: "Industrial Unit Suppression",
     location: "Coventry",
-    tag: "Fire Suppression",
-    desc: "Inert gas system protecting high-value manufacturing equipment.",
-    img: "https://images.unsplash.com/photo-1573167579374-29f7f5a30e8a?w=800&q=80",
+    category: "Fire Suppression",
+    image: "https://images.unsplash.com/photo-1573167579374-29f7f5a30e8a?w=800&q=85",
+    desc: "Inert gas system protecting high-value automated manufacturing equipment.",
+    large: false,
   },
   {
     title: "School Emergency Lighting",
     location: "Leicester",
-    tag: "Emergency Lighting",
-    desc: "Complete BS 5266 compliant emergency lighting installation across 40 classrooms and common areas.",
-    img: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80",
+    category: "Emergency Lighting",
+    image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=85",
+    desc: "Complete BS 5266 compliant emergency lighting across 40+ classrooms, corridors, and common areas. Self-test technology throughout.",
+    large: true,
   },
   {
     title: "Restaurant Extinguisher Package",
     location: "Northampton",
-    tag: "Fire Extinguishers",
-    desc: "Full extinguisher risk assessment and supply across a busy commercial kitchen and dining area.",
-    img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+    category: "Fire Extinguishers",
+    image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=85",
+    desc: "Full risk assessment, supply, and BAFE certified annual service contract for a busy commercial kitchen and dining area.",
+    large: false,
   },
   {
-    title: "Hospital Corridor Detection",
+    title: "Hospital Beam Detection",
     location: "London",
-    tag: "Fire Detection",
-    desc: "Addressable beam detection system installed in a challenging healthcare environment.",
-    img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
+    category: "Fire Detection",
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=85",
+    desc: "Aspirating smoke detection system across a challenging multi-wing NHS facility.",
+    large: false,
+  },
+  {
+    title: "Automated Warehouse Suppression",
+    location: "Nottingham",
+    category: "Fire Suppression",
+    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=900&q=85",
+    desc: "Large-scale inert gas suppression protecting an automated warehouse with £4M+ of high-value stock and robotics.",
+    large: true,
   },
 ];
-
-const tagColors: Record<string, string> = {
-  "Fire Suppression": "#cc2c2c",
-  "Fire Detection": "#cc2c2c",
-  "Fire Extinguishers": "#cc2c2c",
-  "Emergency Lighting": "#cc2c2c",
-};
 
 export default function ProjectsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 lg:px-10" style={{ background: "#111111" }}>
-        <div className="max-w-7xl mx-auto">
-          <AnimateIn variant="fadeIn">
-            <span
-              className="inline-block text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ color: "#cc2c2c" }}
-            >
-              Our Work
-            </span>
-          </AnimateIn>
-          <AnimateIn variant="fadeUp" delay={0.15}>
-            <h1
-              className="font-bold text-white leading-tight"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
-            >
-              Our Installations
+      <section style={{ background: "var(--bg-dark)", paddingTop: "140px", paddingBottom: "80px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 30%, rgba(220,38,38,0.05) 0%, transparent 60%)" }} />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative" style={{ zIndex: 1 }}>
+          <AnimateIn>
+            <p className="eyebrow" style={{ marginBottom: "20px" }}>Our Portfolio</p>
+            <h1 className="display" style={{ color: "#fff", marginBottom: "20px" }}>
+              Installations.
             </h1>
-          </AnimateIn>
-          <AnimateIn variant="fadeUp" delay={0.25}>
-            <p className="mt-6 text-lg leading-8 max-w-xl" style={{ color: "rgba(255,255,255,0.55)" }}>
-              A selection of fire safety projects delivered across the UK — from data centres to schools,
-              warehouses to healthcare facilities.
+            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.75, maxWidth: "500px" }}>
+              A selection of completed fire safety projects across the UK — from data centres to schools, warehouses to hospitals.
             </p>
           </AnimateIn>
         </div>
       </section>
 
       {/* Projects grid */}
-      <section className="py-20 px-6 lg:px-10" style={{ background: "#ffffff" }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((p, i) => (
-              <AnimateIn key={p.title} variant="fadeUp" delay={i * 0.07}>
-                <div
-                  className="flex flex-col h-full overflow-hidden"
-                  style={{ border: "1px solid #e5e5e5" }}
-                >
-                  <div className="relative" style={{ height: "220px" }}>
+      <section style={{ background: "var(--bg-soft)", padding: "80px 0" }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+            {projects.map((project, i) => (
+              <AnimateIn
+                key={i}
+                className={project.large ? "md:col-span-7" : "md:col-span-5"}
+                delay={(i % 3) * 0.07}
+                variant="fadeUp"
+              >
+                <div className="card" style={{ overflow: "hidden", height: "100%" }}>
+                  {/* Image */}
+                  <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden" }}>
                     <Image
-                      src={p.img}
-                      alt={p.title}
+                      src={project.image}
+                      alt={project.title}
                       fill
-                      style={{ objectFit: "cover" }}
+                      className="object-cover"
+                      style={{ transition: "transform 0.5s ease" }}
                     />
+                    <div style={{ position: "absolute", top: "14px", left: "14px" }}>
+                      <span style={{
+                        fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.08em",
+                        textTransform: "uppercase", padding: "4px 10px",
+                        background: "rgba(9,9,9,0.8)", backdropFilter: "blur(8px)",
+                        borderRadius: "3px", color: "rgba(255,255,255,0.7)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                      }}>
+                        {project.category}
+                      </span>
+                    </div>
                   </div>
-                  <div className="p-6 flex flex-col flex-1" style={{ background: "#ffffff" }}>
-                    <span
-                      className="inline-block text-xs font-bold tracking-widest uppercase mb-3"
-                      style={{ color: tagColors[p.tag] || "#cc2c2c" }}
-                    >
-                      {p.tag}
-                    </span>
-                    <h3 className="text-lg font-bold mb-1" style={{ color: "#111111" }}>{p.title}</h3>
-                    <p className="text-xs font-semibold mb-3 uppercase tracking-wide" style={{ color: "#888888" }}>
-                      {p.location}
+                  {/* Content */}
+                  <div style={{ padding: "24px" }}>
+                    <p style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--red)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
+                      {project.location}
                     </p>
-                    <p className="text-sm leading-7 flex-1" style={{ color: "#888888" }}>{p.desc}</p>
+                    <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--ink)", marginBottom: "8px", letterSpacing: "-0.01em" }}>
+                      {project.title}
+                    </h3>
+                    <p style={{ fontSize: "0.845rem", color: "var(--ink-3)", lineHeight: 1.7 }}>
+                      {project.desc}
+                    </p>
                   </div>
                 </div>
               </AnimateIn>
@@ -131,26 +140,27 @@ export default function ProjectsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 lg:px-10" style={{ background: "#111111" }}>
-        <div className="max-w-7xl mx-auto text-center">
-          <AnimateIn variant="fadeUp">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Like what you see? Let&apos;s talk.
+      <section style={{ background: "#fff", padding: "80px 0", borderBottom: "1px solid var(--border)" }}>
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+          <AnimateIn>
+            <p className="eyebrow" style={{ marginBottom: "16px", justifyContent: "center" }}>Get Started</p>
+            <h2 className="heading-lg" style={{ color: "var(--ink)", marginBottom: "16px" }}>
+              Your premises could be next.
             </h2>
-            <p className="text-lg leading-8 mb-10 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
-              Our team is ready to assess your premises and design a fire safety solution tailored to your needs.
+            <p style={{ fontSize: "0.95rem", color: "var(--ink-3)", lineHeight: 1.75, marginBottom: "32px" }}>
+              Every installation starts with a free site survey. Tell us about your building and we&apos;ll recommend the right systems.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/quote" className="btn-red">Get Free Survey →</Link>
-              <Link href="/contact" className="btn-outline-white">Contact Us</Link>
+            <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+              <Link href="/quote" className="btn btn-primary" style={{ fontSize: "0.9rem" }}>Get Free Survey →</Link>
+              <Link href="/contact" className="btn btn-secondary" style={{ fontSize: "0.9rem" }}>Contact Us</Link>
             </div>
           </AnimateIn>
         </div>
       </section>
 
       <LeadCaptureBanner
-        title="Start your fire safety project"
-        subtitle="Book a free site survey — our BAFE-certified engineers will come to you, assess your premises, and provide a detailed written proposal."
+        title="Discuss your project with us."
+        subtitle="Tell us about your fire safety requirements and one of our BAFE-certified engineers will be in touch within one business day."
       />
     </>
   );

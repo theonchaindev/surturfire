@@ -1,52 +1,11 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 
-const premisesTypes = [
-  "Commercial Office",
-  "Data Centre / Server Room",
-  "Industrial / Warehouse",
-  "Healthcare / Hospital",
-  "Education / School",
-  "Retail / Hospitality",
-  "Residential / Other",
-];
-
-const systemTypes = [
-  "Fire Suppression System",
-  "Fire Detection & Alarms",
-  "Fire Extinguishers",
-  "Emergency Lighting",
-  "Full Fire Safety Package",
-  "Annual Servicing / Maintenance",
-  "Not Sure — Need Advice",
-];
-
-const timelines = [
-  "As soon as possible",
-  "Within 1–3 months",
-  "3–6 months",
-  "I'm flexible",
-];
-
-const budgets = [
-  "Under £1,000",
-  "£1,000–£5,000",
-  "£5,000–£15,000",
-  "£15,000+",
-  "Not sure yet",
-];
-
-const trustSignals = [
-  "BAFE-certified engineers",
-  "Free site survey included",
-  "No-obligation quote",
-  "Response within 1 business day",
-];
-
-interface FormData {
+type Form = {
   premises: string;
-  systems: string[];
+  system: string;
   details: string;
   timeline: string;
   budget: string;
@@ -54,227 +13,224 @@ interface FormData {
   email: string;
   phone: string;
   postcode: string;
-  bestTime: string;
-}
+  callTime: string;
+};
 
-const cardSelected = { border: "2px solid #cc2c2c", background: "rgba(204,44,44,0.08)", color: "#cc2c2c" };
-const cardDefault = { border: "2px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.75)" };
+const INITIAL: Form = {
+  premises: "", system: "", details: "", timeline: "",
+  budget: "", name: "", email: "", phone: "", postcode: "", callTime: "",
+};
+
+const PREMISES = [
+  { id: "office", label: "Commercial Office" },
+  { id: "datacentre", label: "Data Centre / Server Room" },
+  { id: "warehouse", label: "Industrial / Warehouse" },
+  { id: "healthcare", label: "Healthcare / Hospital" },
+  { id: "education", label: "Education / School" },
+  { id: "retail", label: "Retail / Hospitality" },
+  { id: "residential", label: "Residential / Other" },
+];
+
+const SYSTEMS = [
+  { id: "suppression", label: "Fire Suppression System" },
+  { id: "detection", label: "Fire Detection & Alarms" },
+  { id: "extinguishers", label: "Fire Extinguishers" },
+  { id: "lighting", label: "Emergency Lighting" },
+  { id: "full", label: "Full Fire Safety Package" },
+  { id: "maintenance", label: "Annual Servicing / Maintenance" },
+  { id: "unsure", label: "Not Sure — Need Advice" },
+];
+
+const TIMELINES = [
+  { id: "asap", label: "As soon as possible" },
+  { id: "1-3mo", label: "Within 1–3 months" },
+  { id: "3-6mo", label: "3–6 months" },
+  { id: "flexible", label: "I&apos;m flexible" },
+];
+
+const BUDGETS = [
+  { id: "under1k", label: "Under £1,000" },
+  { id: "1-5k", label: "£1,000 – £5,000" },
+  { id: "5-15k", label: "£5,000 – £15,000" },
+  { id: "15k+", label: "£15,000+" },
+  { id: "unsure", label: "Not sure yet" },
+];
+
+const STEPS = [
+  { label: "Premises", title: "What type of premises?" },
+  { label: "System", title: "What do you need?" },
+  { label: "Timeline", title: "When &amp; what budget?" },
+  { label: "Contact", title: "How do we reach you?" },
+];
+
+const selStyle = (active: boolean): React.CSSProperties => ({
+  padding: "14px 18px",
+  border: active ? "2px solid var(--red)" : "1px solid var(--border)",
+  borderRadius: "6px",
+  background: active ? "var(--red-soft)" : "#fff",
+  cursor: "pointer",
+  textAlign: "left",
+  fontFamily: "inherit",
+  fontSize: "0.875rem",
+  fontWeight: active ? 600 : 400,
+  color: active ? "var(--red)" : "var(--ink-2)",
+  transition: "all 0.15s",
+  width: "100%",
+});
 
 export default function QuoteBuilder() {
   const [step, setStep] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState<Form>(INITIAL);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const [form, setForm] = useState<FormData>({
-    premises: "",
-    systems: [],
-    details: "",
-    timeline: "",
-    budget: "",
-    name: "",
-    email: "",
-    phone: "",
-    postcode: "",
-    bestTime: "",
-  });
-
-  const toggleSystem = (s: string) => {
-    setForm((f) => ({
-      ...f,
-      systems: f.systems.includes(s) ? f.systems.filter((x) => x !== s) : [...f.systems, s],
-    }));
-  };
+  const set = (k: keyof Form, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
   const canNext = () => {
     if (step === 0) return !!form.premises;
-    if (step === 1) return form.systems.length > 0;
-    if (step === 2) return !!form.timeline && !!form.budget;
-    return true;
+    if (step === 1) return !!form.system;
+    if (step === 2) return !!form.timeline;
+    if (step === 3) return !!(form.name && form.email && form.phone && form.postcode);
+    return false;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email) return;
+  const submit = async () => {
     setSubmitting(true);
+    setError("");
     try {
-      await fetch("/api/quote", {
+      const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      if (!res.ok) throw new Error();
       setSubmitted(true);
-    } catch { /* fail silently */ } finally {
+    } catch {
+      setError("Something went wrong. Please try again or call us on +44 7843 841219.");
+    } finally {
       setSubmitting(false);
     }
   };
 
   if (submitted) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center px-6 py-20">
-        <div className="text-center max-w-md">
-          <div
-            className="w-16 h-16 mx-auto mb-8 flex items-center justify-center"
-            style={{ background: "#cc2c2c" }}
-          >
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M5 14l6 6 12-12" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+      <div style={{ minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px" }}>
+        <div style={{ textAlign: "center", maxWidth: "440px" }}>
+          <div style={{ width: "56px", height: "56px", borderRadius: "50%", background: "var(--red)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13l7 7 11-11" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </div>
-          <h2 className="text-3xl font-bold mb-4 text-white">Quote request received!</h2>
-          <p className="text-base leading-7 mb-8" style={{ color: "rgba(255,255,255,0.6)" }}>
-            Thank you, {form.name}. One of our BAFE-certified engineers will be in touch within 1 business
-            day to arrange your free site survey.
+          <h2 style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--ink)", marginBottom: "12px", letterSpacing: "-0.02em" }}>
+            Survey request received.
+          </h2>
+          <p style={{ fontSize: "0.925rem", color: "var(--ink-3)", lineHeight: 1.75, marginBottom: "32px" }}>
+            Thanks, {form.name.split(" ")[0]}. We&apos;ll review your details and be in touch within one business day to arrange your free site survey.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/" className="btn-red">Back to Home</Link>
-            <Link href="/services" className="btn-outline-white">Our Services</Link>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+            <Link href="/projects" className="btn btn-secondary">View Our Work</Link>
+            <Link href="/" className="btn btn-primary">Back to Home</Link>
           </div>
         </div>
       </div>
     );
   }
 
-  const steps = ["Premises", "Systems", "Timeline", "Contact"];
-
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
-      {/* Progress indicator */}
-      <div className="mb-12">
-        <div className="flex items-center gap-2 mb-8">
-          {steps.map((s, i) => (
-            <div key={s} className="flex items-center gap-2">
-              <div
-                className="w-8 h-8 flex items-center justify-center text-xs font-bold transition-all duration-300"
-                style={{
-                  background: i <= step ? "#cc2c2c" : "transparent",
-                  border: `2px solid ${i <= step ? "#cc2c2c" : "rgba(255,255,255,0.15)"}`,
-                  color: i <= step ? "white" : "rgba(255,255,255,0.3)",
-                }}
-              >
-                {i < step ? (
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                ) : (
-                  i + 1
-                )}
+    <div style={{ padding: "60px 24px 80px", maxWidth: "680px", margin: "0 auto" }}>
+
+      {/* Progress */}
+      <div style={{ marginBottom: "48px" }}>
+        <p className="eyebrow" style={{ marginBottom: "12px" }}>Free Survey — No Obligation</p>
+        <h1 style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--ink)", letterSpacing: "-0.02em", marginBottom: "28px" }}
+          dangerouslySetInnerHTML={{ __html: STEPS[step].title }}
+        />
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {STEPS.map((s, i) => (
+            <div key={s.label} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
+                <div style={{
+                  width: "28px", height: "28px", borderRadius: "50%",
+                  background: i < step ? "var(--red)" : i === step ? "var(--red)" : "var(--bg-soft)",
+                  border: i > step ? "1px solid var(--border)" : "none",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "0.72rem", fontWeight: 700,
+                  color: i <= step ? "#fff" : "var(--ink-4)",
+                  transition: "all 0.2s",
+                }}>
+                  {i < step ? (
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6l3 3 6-6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  ) : i + 1}
+                </div>
+                <span style={{ fontSize: "0.78rem", fontWeight: i === step ? 600 : 400, color: i === step ? "var(--ink)" : "var(--ink-4)" }} className="hidden sm:inline">
+                  {s.label}
+                </span>
               </div>
-              <span
-                className="text-xs font-medium hidden sm:block"
-                style={{ color: i === step ? "white" : "rgba(255,255,255,0.3)" }}
-              >
-                {s}
-              </span>
-              {i < steps.length - 1 && (
-                <div
-                  className="w-6 lg:w-12 h-px mx-1"
-                  style={{ background: i < step ? "#cc2c2c" : "rgba(255,255,255,0.1)" }}
-                />
+              {i < STEPS.length - 1 && (
+                <div style={{ width: "32px", height: "1px", background: i < step ? "var(--red)" : "var(--border)", transition: "background 0.3s" }} />
               )}
             </div>
           ))}
         </div>
-
-        <h2 className="text-3xl lg:text-4xl font-bold text-white">
-          {step === 0 && "What type of premises?"}
-          {step === 1 && "What systems do you need?"}
-          {step === 2 && "Timeline & budget"}
-          {step === 3 && "Your contact details"}
-        </h2>
       </div>
 
       {/* Step 0: Premises */}
       {step === 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {premisesTypes.map((p) => (
-            <button
-              key={p}
-              type="button"
-              onClick={() => setForm((f) => ({ ...f, premises: p }))}
-              className="p-5 text-left text-sm font-medium transition-all duration-200"
-              style={form.premises === p ? cardSelected : cardDefault}
-            >
-              {p}
+          {PREMISES.map((p) => (
+            <button key={p.id} onClick={() => set("premises", p.id)} style={selStyle(form.premises === p.id)}>
+              {p.label}
             </button>
           ))}
         </div>
       )}
 
-      {/* Step 1: Systems */}
+      {/* Step 1: System */}
       {step === 1 && (
-        <div className="flex flex-col gap-4">
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {systemTypes.map((s) => (
-              <button
-                key={s}
-                type="button"
-                onClick={() => toggleSystem(s)}
-                className="p-5 text-left text-sm font-medium transition-all duration-200"
-                style={form.systems.includes(s) ? cardSelected : cardDefault}
-              >
-                {s}
+            {SYSTEMS.map((s) => (
+              <button key={s.id} onClick={() => set("system", s.id)} style={selStyle(form.system === s.id)}>
+                {s.label}
               </button>
             ))}
           </div>
-          <div className="mt-4">
-            <label
-              className="block text-xs font-bold uppercase tracking-wide mb-3"
-              style={{ color: "rgba(255,255,255,0.4)" }}
-            >
-              Additional details (optional)
+          <div style={{ marginTop: "8px" }}>
+            <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--ink-3)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              Additional details <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
             </label>
             <textarea
-              rows={4}
-              placeholder="Tell us about your premises, any specific concerns, or existing systems..."
+              rows={3}
+              placeholder="Describe your premises, any existing systems, or specific requirements..."
               value={form.details}
-              onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))}
-              className="form-input-dark resize-none"
+              onChange={(e) => set("details", e.target.value)}
+              className="field"
+              style={{ resize: "none" }}
             />
           </div>
         </div>
       )}
 
-      {/* Step 2: Timeline & Budget */}
+      {/* Step 2: Timeline + Budget */}
       {step === 2 && (
-        <div className="flex flex-col gap-10">
+        <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
           <div>
-            <h3
-              className="text-xs font-bold uppercase tracking-wide mb-4"
-              style={{ color: "rgba(255,255,255,0.4)" }}
-            >
-              When do you need the work done?
-            </h3>
+            <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--ink)", marginBottom: "12px" }}>When do you need the work completed?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {timelines.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => setForm((f) => ({ ...f, timeline: t }))}
-                  className="p-5 text-left text-sm font-medium transition-all duration-200"
-                  style={form.timeline === t ? cardSelected : cardDefault}
-                >
-                  {t}
-                </button>
+              {TIMELINES.map((t) => (
+                <button key={t.id} onClick={() => set("timeline", t.id)} style={selStyle(form.timeline === t.id)}
+                  dangerouslySetInnerHTML={{ __html: t.label }}
+                />
               ))}
             </div>
           </div>
           <div>
-            <h3
-              className="text-xs font-bold uppercase tracking-wide mb-4"
-              style={{ color: "rgba(255,255,255,0.4)" }}
-            >
-              Approximate budget
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {budgets.map((b) => (
-                <button
-                  key={b}
-                  type="button"
-                  onClick={() => setForm((f) => ({ ...f, budget: b }))}
-                  className="p-5 text-left text-sm font-medium transition-all duration-200"
-                  style={form.budget === b ? cardSelected : cardDefault}
-                >
-                  {b}
+            <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--ink)", marginBottom: "12px" }}>
+              Approximate budget? <span style={{ fontWeight: 400, color: "var(--ink-4)", fontSize: "0.8rem" }}>Helps us tailor our proposal</span>
+            </p>
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+              {BUDGETS.map((b) => (
+                <button key={b.id} onClick={() => set("budget", b.id)} style={{ ...selStyle(form.budget === b.id), fontSize: "0.8rem", textAlign: "center" }}>
+                  {b.label}
                 </button>
               ))}
             </div>
@@ -284,133 +240,75 @@ export default function QuoteBuilder() {
 
       {/* Step 3: Contact */}
       {step === 3 && (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="sm:col-span-2">
+            <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--ink-3)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Full Name *</label>
+            <input type="text" required placeholder="John Smith" value={form.name} onChange={(e) => set("name", e.target.value)} className="field" />
+          </div>
           <div>
-            <label
-              className="block text-xs font-bold uppercase tracking-wide mb-3"
-              style={{ color: "rgba(255,255,255,0.4)" }}
-            >
-              Full Name *
-            </label>
-            <input
-              type="text"
-              required
-              placeholder="John Smith"
-              value={form.name}
-              onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="form-input"
-            />
+            <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--ink-3)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Email *</label>
+            <input type="email" required placeholder="john@company.com" value={form.email} onChange={(e) => set("email", e.target.value)} className="field" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div>
-              <label
-                className="block text-xs font-bold uppercase tracking-wide mb-3"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                Email *
-              </label>
-              <input
-                type="email"
-                required
-                placeholder="john@company.com"
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="form-input"
-              />
-            </div>
-            <div>
-              <label
-                className="block text-xs font-bold uppercase tracking-wide mb-3"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                Phone
-              </label>
-              <input
-                type="tel"
-                placeholder="07700 900000"
-                value={form.phone}
-                onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                className="form-input"
-              />
-            </div>
+          <div>
+            <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--ink-3)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Phone *</label>
+            <input type="tel" required placeholder="07700 900000" value={form.phone} onChange={(e) => set("phone", e.target.value)} className="field" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div>
-              <label
-                className="block text-xs font-bold uppercase tracking-wide mb-3"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                Postcode
-              </label>
-              <input
-                type="text"
-                placeholder="NN2 7AZ"
-                value={form.postcode}
-                onChange={(e) => setForm((f) => ({ ...f, postcode: e.target.value }))}
-                className="form-input"
-              />
-            </div>
-            <div>
-              <label
-                className="block text-xs font-bold uppercase tracking-wide mb-3"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                Best time to call
-              </label>
-              <input
-                type="text"
-                placeholder="e.g. Morning, Afternoon"
-                value={form.bestTime}
-                onChange={(e) => setForm((f) => ({ ...f, bestTime: e.target.value }))}
-                className="form-input"
-              />
-            </div>
+          <div>
+            <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--ink-3)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Postcode *</label>
+            <input type="text" required placeholder="NN1 1AA" value={form.postcode} onChange={(e) => set("postcode", e.target.value.toUpperCase())} className="field" />
           </div>
-
-          {/* Trust signals */}
-          <div className="pt-2 grid grid-cols-2 gap-3">
-            {trustSignals.map((s) => (
-              <div key={s} className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 1.5L2 4.5v3.5c0 2.8 2.2 5 5 5.5 2.8-.5 5-2.7 5-5.5V4.5z" stroke="#cc2c2c" strokeWidth="1.2" strokeLinejoin="round" />
-                  <path d="M4.5 7l2 2 3-3" stroke="#cc2c2c" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                {s}
-              </div>
-            ))}
+          <div>
+            <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--ink-3)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Best time to call</label>
+            <input type="text" placeholder="e.g. Mornings, after 5pm" value={form.callTime} onChange={(e) => set("callTime", e.target.value)} className="field" />
           </div>
-
-          <button type="submit" disabled={submitting} className="btn-red w-fit">
-            {submitting ? "Sending..." : "Submit Quote Request →"}
-          </button>
-        </form>
+          <div className="sm:col-span-2">
+            <p style={{ fontSize: "0.78rem", color: "var(--ink-4)", lineHeight: 1.6 }}>
+              By submitting you agree to be contacted by Surtur Fire regarding your enquiry. We never share your details with third parties.
+            </p>
+          </div>
+        </div>
       )}
 
-      {/* Navigation */}
-      <div
-        className="flex items-center justify-between mt-10 pt-8"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
-      >
+      {/* Nav */}
+      <div style={{ marginTop: "36px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <button
-          type="button"
-          onClick={() => setStep((s) => s - 1)}
-          className="text-sm font-medium transition-colors"
-          style={{ color: "rgba(255,255,255,0.4)", display: step === 0 ? "none" : "block" }}
+          onClick={() => setStep((s) => Math.max(0, s - 1))}
+          style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.875rem", fontWeight: 500, color: "var(--ink-3)", background: "none", border: "none", cursor: "pointer", padding: 0, opacity: step === 0 ? 0 : 1, pointerEvents: step === 0 ? "none" : "auto" }}
         >
-          ← Back
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11 8H5M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          Back
         </button>
-        <div />
-        {step < 3 && (
-          <button
-            type="button"
-            onClick={() => setStep((s) => s + 1)}
-            disabled={!canNext()}
-            className="btn-red"
-            style={{ opacity: canNext() ? 1 : 0.4, cursor: canNext() ? "pointer" : "not-allowed" }}
-          >
-            Continue →
-          </button>
-        )}
+
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          {error && <p style={{ fontSize: "0.8rem", color: "var(--red)" }}>{error}</p>}
+          {step < STEPS.length - 1 ? (
+            <button
+              onClick={() => setStep((s) => s + 1)}
+              disabled={!canNext()}
+              className="btn btn-primary"
+              style={{ opacity: canNext() ? 1 : 0.4, cursor: canNext() ? "pointer" : "not-allowed" }}
+            >
+              Continue
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          ) : (
+            <button
+              onClick={submit}
+              disabled={!canNext() || submitting}
+              className="btn btn-primary"
+              style={{ opacity: canNext() && !submitting ? 1 : 0.4, cursor: canNext() && !submitting ? "pointer" : "not-allowed" }}
+            >
+              {submitting ? "Submitting..." : "Submit Request →"}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Trust signals */}
+      <div style={{ marginTop: "48px", paddingTop: "28px", borderTop: "1px solid var(--border)", display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        {["✓ BAFE-certified engineers", "✓ Free site survey included", "✓ No-obligation quote", "✓ Reply within 1 business day"].map((t) => (
+          <span key={t} style={{ fontSize: "0.8rem", color: "var(--ink-4)", fontWeight: 500 }}>{t}</span>
+        ))}
       </div>
     </div>
   );

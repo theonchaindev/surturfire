@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function QuotePage() {
   return (
-    <div className="pt-20" style={{ background: "var(--off-white)", minHeight: "100vh" }}>
+    <div style={{ background: "#111111", minHeight: "100vh", paddingTop: "72px" }}>
       <QuoteBuilder />
     </div>
   );

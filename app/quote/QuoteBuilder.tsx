@@ -26,7 +26,7 @@ const timelines = [
   "As soon as possible",
   "Within 1–3 months",
   "3–6 months",
-  "I&apos;m flexible",
+  "I'm flexible",
 ];
 
 const budgets = [
@@ -56,6 +56,9 @@ interface FormData {
   postcode: string;
   bestTime: string;
 }
+
+const cardSelected = { border: "2px solid #cc2c2c", background: "rgba(204,44,44,0.08)", color: "#cc2c2c" };
+const cardDefault = { border: "2px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.75)" };
 
 export default function QuoteBuilder() {
   const [step, setStep] = useState(0);
@@ -107,20 +110,24 @@ export default function QuoteBuilder() {
 
   if (submitted) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center px-6">
+      <div className="min-h-[60vh] flex items-center justify-center px-6 py-20">
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 mx-auto mb-8 flex items-center justify-center" style={{ background: "var(--green-deep)" }}>
+          <div
+            className="w-16 h-16 mx-auto mb-8 flex items-center justify-center"
+            style={{ background: "#cc2c2c" }}
+          >
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M5 14l6 6 12-12" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5 14l6 6 12-12" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h2 className="font-display text-3xl font-bold mb-4" style={{ color: "var(--charcoal)" }}>Quote request received!</h2>
-          <p className="text-base leading-7 mb-8" style={{ color: "var(--grey)" }}>
-            Thank you, {form.name}. One of our BAFE-certified engineers will be in touch within 1 business day to arrange your free site survey.
+          <h2 className="text-3xl font-bold mb-4 text-white">Quote request received!</h2>
+          <p className="text-base leading-7 mb-8" style={{ color: "rgba(255,255,255,0.6)" }}>
+            Thank you, {form.name}. One of our BAFE-certified engineers will be in touch within 1 business
+            day to arrange your free site survey.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/" className="btn-green">Back to Home</Link>
-            <Link href="/services" className="btn-outline-green">Our Services</Link>
+            <Link href="/" className="btn-red">Back to Home</Link>
+            <Link href="/services" className="btn-outline-white">Our Services</Link>
           </div>
         </div>
       </div>
@@ -131,31 +138,44 @@ export default function QuoteBuilder() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      {/* Progress */}
+      {/* Progress indicator */}
       <div className="mb-12">
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-8">
           {steps.map((s, i) => (
             <div key={s} className="flex items-center gap-2">
               <div
                 className="w-8 h-8 flex items-center justify-center text-xs font-bold transition-all duration-300"
                 style={{
-                  background: i <= step ? "var(--green-deep)" : "transparent",
-                  border: `2px solid ${i <= step ? "var(--green-deep)" : "#ddd"}`,
-                  color: i <= step ? "white" : "var(--grey-light)",
+                  background: i <= step ? "#cc2c2c" : "transparent",
+                  border: `2px solid ${i <= step ? "#cc2c2c" : "rgba(255,255,255,0.15)"}`,
+                  color: i <= step ? "white" : "rgba(255,255,255,0.3)",
                 }}
               >
                 {i < step ? (
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 ) : (
                   i + 1
                 )}
               </div>
-              <span className="text-xs font-medium hidden sm:block" style={{ color: i === step ? "var(--charcoal)" : "var(--grey-light)" }}>{s}</span>
-              {i < steps.length - 1 && <div className="w-6 lg:w-12 h-px mx-1" style={{ background: i < step ? "var(--green-deep)" : "#ddd" }} />}
+              <span
+                className="text-xs font-medium hidden sm:block"
+                style={{ color: i === step ? "white" : "rgba(255,255,255,0.3)" }}
+              >
+                {s}
+              </span>
+              {i < steps.length - 1 && (
+                <div
+                  className="w-6 lg:w-12 h-px mx-1"
+                  style={{ background: i < step ? "#cc2c2c" : "rgba(255,255,255,0.1)" }}
+                />
+              )}
             </div>
           ))}
         </div>
-        <h2 className="font-display text-3xl lg:text-4xl font-bold" style={{ color: "var(--charcoal)" }}>
+
+        <h2 className="text-3xl lg:text-4xl font-bold text-white">
           {step === 0 && "What type of premises?"}
           {step === 1 && "What systems do you need?"}
           {step === 2 && "Timeline & budget"}
@@ -172,11 +192,7 @@ export default function QuoteBuilder() {
               type="button"
               onClick={() => setForm((f) => ({ ...f, premises: p }))}
               className="p-5 text-left text-sm font-medium transition-all duration-200"
-              style={{
-                border: `2px solid ${form.premises === p ? "var(--green-deep)" : "#e0e0e0"}`,
-                background: form.premises === p ? "var(--green-pale)" : "white",
-                color: form.premises === p ? "var(--green-deep)" : "var(--charcoal)",
-              }}
+              style={form.premises === p ? cardSelected : cardDefault}
             >
               {p}
             </button>
@@ -194,18 +210,17 @@ export default function QuoteBuilder() {
                 type="button"
                 onClick={() => toggleSystem(s)}
                 className="p-5 text-left text-sm font-medium transition-all duration-200"
-                style={{
-                  border: `2px solid ${form.systems.includes(s) ? "var(--green-deep)" : "#e0e0e0"}`,
-                  background: form.systems.includes(s) ? "var(--green-pale)" : "white",
-                  color: form.systems.includes(s) ? "var(--green-deep)" : "var(--charcoal)",
-                }}
+                style={form.systems.includes(s) ? cardSelected : cardDefault}
               >
                 {s}
               </button>
             ))}
           </div>
           <div className="mt-4">
-            <label className="block text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "var(--grey)" }}>
+            <label
+              className="block text-xs font-bold uppercase tracking-wide mb-3"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
               Additional details (optional)
             </label>
             <textarea
@@ -213,7 +228,7 @@ export default function QuoteBuilder() {
               placeholder="Tell us about your premises, any specific concerns, or existing systems..."
               value={form.details}
               onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))}
-              className="form-input resize-none"
+              className="form-input-dark resize-none"
             />
           </div>
         </div>
@@ -223,7 +238,12 @@ export default function QuoteBuilder() {
       {step === 2 && (
         <div className="flex flex-col gap-10">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide mb-4" style={{ color: "var(--grey)" }}>When do you need the work done?</h3>
+            <h3
+              className="text-xs font-bold uppercase tracking-wide mb-4"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              When do you need the work done?
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {timelines.map((t) => (
                 <button
@@ -231,18 +251,20 @@ export default function QuoteBuilder() {
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, timeline: t }))}
                   className="p-5 text-left text-sm font-medium transition-all duration-200"
-                  style={{
-                    border: `2px solid ${form.timeline === t ? "var(--green-deep)" : "#e0e0e0"}`,
-                    background: form.timeline === t ? "var(--green-pale)" : "white",
-                    color: form.timeline === t ? "var(--green-deep)" : "var(--charcoal)",
-                  }}
-                  dangerouslySetInnerHTML={{ __html: t }}
-                />
+                  style={form.timeline === t ? cardSelected : cardDefault}
+                >
+                  {t}
+                </button>
               ))}
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide mb-4" style={{ color: "var(--grey)" }}>Approximate budget</h3>
+            <h3
+              className="text-xs font-bold uppercase tracking-wide mb-4"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              Approximate budget
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {budgets.map((b) => (
                 <button
@@ -250,11 +272,7 @@ export default function QuoteBuilder() {
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, budget: b }))}
                   className="p-5 text-left text-sm font-medium transition-all duration-200"
-                  style={{
-                    border: `2px solid ${form.budget === b ? "var(--green-deep)" : "#e0e0e0"}`,
-                    background: form.budget === b ? "var(--green-pale)" : "white",
-                    color: form.budget === b ? "var(--green-deep)" : "var(--charcoal)",
-                  }}
+                  style={form.budget === b ? cardSelected : cardDefault}
                 >
                   {b}
                 </button>
@@ -268,7 +286,12 @@ export default function QuoteBuilder() {
       {step === 3 && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--grey)" }}>Full Name *</label>
+            <label
+              className="block text-xs font-bold uppercase tracking-wide mb-3"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              Full Name *
+            </label>
             <input
               type="text"
               required
@@ -280,7 +303,12 @@ export default function QuoteBuilder() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--grey)" }}>Email *</label>
+              <label
+                className="block text-xs font-bold uppercase tracking-wide mb-3"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Email *
+              </label>
               <input
                 type="email"
                 required
@@ -291,7 +319,12 @@ export default function QuoteBuilder() {
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--grey)" }}>Phone</label>
+              <label
+                className="block text-xs font-bold uppercase tracking-wide mb-3"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Phone
+              </label>
               <input
                 type="tel"
                 placeholder="07700 900000"
@@ -303,7 +336,12 @@ export default function QuoteBuilder() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--grey)" }}>Postcode</label>
+              <label
+                className="block text-xs font-bold uppercase tracking-wide mb-3"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Postcode
+              </label>
               <input
                 type="text"
                 placeholder="NN2 7AZ"
@@ -313,7 +351,12 @@ export default function QuoteBuilder() {
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "var(--grey)" }}>Best time to call</label>
+              <label
+                className="block text-xs font-bold uppercase tracking-wide mb-3"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Best time to call
+              </label>
               <input
                 type="text"
                 placeholder="e.g. Morning, Afternoon"
@@ -325,31 +368,34 @@ export default function QuoteBuilder() {
           </div>
 
           {/* Trust signals */}
-          <div className="pt-4 grid grid-cols-2 gap-3">
+          <div className="pt-2 grid grid-cols-2 gap-3">
             {trustSignals.map((s) => (
-              <div key={s} className="flex items-center gap-2 text-xs" style={{ color: "var(--grey)" }}>
+              <div key={s} className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 1.5L2 4.5v3.5c0 2.8 2.2 5 5 5.5 2.8-.5 5-2.7 5-5.5V4.5z" stroke="var(--green-deep)" strokeWidth="1.2" strokeLinejoin="round"/>
-                  <path d="M4.5 7l2 2 3-3" stroke="var(--green-deep)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M7 1.5L2 4.5v3.5c0 2.8 2.2 5 5 5.5 2.8-.5 5-2.7 5-5.5V4.5z" stroke="#cc2c2c" strokeWidth="1.2" strokeLinejoin="round" />
+                  <path d="M4.5 7l2 2 3-3" stroke="#cc2c2c" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {s}
               </div>
             ))}
           </div>
 
-          <button type="submit" disabled={submitting} className="btn-green w-fit">
+          <button type="submit" disabled={submitting} className="btn-red w-fit">
             {submitting ? "Sending..." : "Submit Quote Request →"}
           </button>
         </form>
       )}
 
       {/* Navigation */}
-      <div className="flex items-center justify-between mt-10 pt-8" style={{ borderTop: "1px solid #e0e0e0" }}>
+      <div
+        className="flex items-center justify-between mt-10 pt-8"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+      >
         <button
           type="button"
           onClick={() => setStep((s) => s - 1)}
           className="text-sm font-medium transition-colors"
-          style={{ color: "var(--grey)", display: step === 0 ? "none" : "block" }}
+          style={{ color: "rgba(255,255,255,0.4)", display: step === 0 ? "none" : "block" }}
         >
           ← Back
         </button>
@@ -359,7 +405,7 @@ export default function QuoteBuilder() {
             type="button"
             onClick={() => setStep((s) => s + 1)}
             disabled={!canNext()}
-            className="btn-green"
+            className="btn-red"
             style={{ opacity: canNext() ? 1 : 0.4, cursor: canNext() ? "pointer" : "not-allowed" }}
           >
             Continue →

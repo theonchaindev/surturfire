@@ -23,7 +23,7 @@ interface Props {
 
 export default function AnimateIn({ children, variant = "fadeUp", delay = 0, duration = 0.55, className, once = true }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once, margin: "-80px" });
+  const inView = useInView(ref, { once, margin: "-60px" });
 
   return (
     <motion.div

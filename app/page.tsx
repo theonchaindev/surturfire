@@ -3,321 +3,411 @@ import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
 import LeadCaptureBanner from "@/components/LeadCaptureBanner";
 
-const certs = ["BAFE", "FIA", "Safe Contractor", "LPCG"];
-
-const services = [
-  { num: "01", title: "Fire Suppression", desc: "Gas-based suppression systems engineered to protect critical infrastructure, data centres, and high-value assets." },
-  { num: "02", title: "Fire Detection", desc: "Conventional and addressable detection systems — from a single device to building-wide networks." },
-  { num: "03", title: "Fire Extinguishers", desc: "Supply, installation, and annual servicing of the right extinguishers for your premises." },
-  { num: "04", title: "Emergency Lighting", desc: "BS 5266-compliant emergency lighting keeping occupants safe when they need it most." },
-];
-
-const whyUs = [
-  "BAFE-qualified engineers on every job",
-  "Free site surveys & no-obligation quotes",
-  "Fully insured with public liability cover",
-  "Rapid response maintenance contracts",
-  "Transparent fixed-price quotes, no surprises",
-];
-
 const testimonials = [
-  { name: "Kevin Anderson", role: "Facilities Manager", text: "The gas suppression system was installed professionally and on time. The team were knowledgeable and kept us informed throughout. Highly recommend Surtur Fire." },
-  { name: "Olivia Smith", role: "Office Manager", text: "Fire detection system fitted throughout our office — excellent service from start to finish. The engineers were tidy, efficient and fully explained the system." },
-  { name: "Terry Malone", role: "Operations Director", text: "Highly knowledgeable team. Our annual servicing contract couldn't be better — always on time, always thorough. Wouldn't use anyone else." },
-];
-
-const projects = [
   {
-    title: "Data Centre Gas Suppression",
-    location: "Northampton",
-    tag: "Fire Suppression",
-    img: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1000&q=80",
-    large: true,
+    name: "Kevin Anderson",
+    location: "Facilities Manager, Northampton",
+    text: "The gas suppression system was installed professionally and on time. Excellent service and competitive pricing.",
   },
   {
-    title: "Multi-Floor Office Detection",
-    location: "Birmingham",
-    tag: "Fire Detection",
-    img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
-    large: false,
+    name: "Olivia Smith",
+    location: "Office Manager, Birmingham",
+    text: "Our office fire detection was fitted with minimal disruption. Very professional team.",
   },
   {
-    title: "Industrial Unit Suppression",
-    location: "Coventry",
-    tag: "Fire Suppression",
-    img: "https://images.unsplash.com/photo-1573167579374-29f7f5a30e8a?w=800&q=80",
-    large: false,
+    name: "Terry Malone",
+    location: "Operations Director, Coventry",
+    text: "Highly knowledgeable. Annual servicing contract has given us complete peace of mind.",
   },
 ];
 
 export default function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative min-h-screen flex items-center" style={{ background: "var(--charcoal)" }}>
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80"
-            alt="Server room fire protection"
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(20,20,20,0.98) 50%, rgba(20,20,20,0.5))" }} />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full pt-24 pb-20">
-          <div className="max-w-2xl">
-            <AnimateIn variant="fadeIn" delay={0.1}>
-              <span className="tag text-white/40 mb-8 block w-fit">
-                <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--green-light)" }} />
-                BAFE Certified · UK-Wide
+      {/* ──────────────────────────────────────────
+          HERO
+      ────────────────────────────────────────── */}
+      <section
+        className="relative min-h-screen flex items-center"
+        style={{ background: "#111111", paddingTop: "72px" }}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full py-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left column */}
+          <div className="lg:col-span-7">
+            <AnimateIn variant="fadeIn" delay={0.05}>
+              <span
+                className="inline-block text-xs font-bold tracking-widest uppercase mb-6"
+                style={{ color: "#cc2c2c", letterSpacing: "0.14em" }}
+              >
+                UK Fire Safety Specialists
               </span>
             </AnimateIn>
 
-            <AnimateIn variant="fadeUp" delay={0.2}>
-              <h1 className="font-display font-bold leading-tight mb-6" style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", color: "white" }}>
-                We protect<br />what matters{" "}
-                <em style={{ color: "var(--green-light)", fontStyle: "italic" }}>most.</em>
+            <AnimateIn variant="fadeUp" delay={0.15}>
+              <h1
+                className="font-bold leading-tight text-white mb-6"
+                style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", fontFamily: "Inter, sans-serif" }}
+              >
+                Protecting People &amp; Businesses Across The UK
               </h1>
             </AnimateIn>
 
+            <AnimateIn variant="fadeUp" delay={0.25}>
+              <p
+                className="text-lg leading-8 mb-10"
+                style={{ color: "rgba(255,255,255,0.55)", maxWidth: "520px" }}
+              >
+                Trusted by clients across the UK, we are experts in the supply, maintenance, and design
+                of fire safety systems to safeguard against the dangers of fire.
+              </p>
+            </AnimateIn>
+
             <AnimateIn variant="fadeUp" delay={0.35}>
-              <p className="text-lg leading-8 mb-10" style={{ color: "rgba(255,255,255,0.6)", maxWidth: "520px" }}>
-                Trusted by clients across the UK, we are experts in the supply, maintenance, and design of fire safety systems to safeguard against the dangers of fire.
-              </p>
-            </AnimateIn>
-
-            <AnimateIn variant="fadeUp" delay={0.45}>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/quote" className="btn-green">
-                  Free Survey
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <div className="flex flex-wrap gap-4 mb-10">
+                <Link href="/quote" className="btn-red">
+                  Get Free Survey
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </Link>
-                <Link href="/services" className="btn-outline-white">Our Services</Link>
+                <Link href="/services" className="btn-outline-white">
+                  View Services
+                </Link>
               </div>
-            </AnimateIn>
-
-            {/* Stats */}
-            <AnimateIn variant="fadeUp" delay={0.6}>
-              <div className="mt-16 pt-10 flex flex-wrap gap-10" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-                {[
-                  { val: "500+", label: "Installations" },
-                  { val: "10+", label: "Years Experience" },
-                  { val: "BAFE", label: "Certified" },
-                  { val: "UK-Wide", label: "Coverage" },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <div className="font-display font-bold text-2xl text-white">{s.val}</div>
-                    <div className="text-xs mt-1 uppercase tracking-widest font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>{s.label}</div>
-                  </div>
-                ))}
+              {/* Cert strip */}
+              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <span>BAFE</span>
+                <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+                <span>FIA</span>
+                <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+                <span>Safe Contractor</span>
+                <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+                <span>LPCG</span>
               </div>
             </AnimateIn>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style={{ color: "rgba(255,255,255,0.3)" }}>
-          <div className="w-px h-12" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)" }} />
-        </div>
-      </section>
-
-      {/* CERTIFICATIONS STRIP */}
-      <section style={{ background: "var(--charcoal)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div>
-              <span className="tag mb-3 block w-fit" style={{ color: "var(--green-light)", borderColor: "var(--green-light)" }}>Accredited & Certified</span>
-              <p className="text-sm leading-7 max-w-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                Every engineer is trained to industry standards. Our certifications speak for themselves.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {certs.map((cert) => (
-                <span
-                  key={cert}
-                  className="px-6 py-3 text-sm font-semibold tracking-widest uppercase"
-                  style={{ border: "1px solid rgba(255,255,255,0.15)", color: "white", background: "rgba(255,255,255,0.04)" }}
-                >
-                  {cert}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section className="py-24 px-6 lg:px-10" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto">
-          <AnimateIn variant="fadeUp">
-            <div className="mb-16">
-              <span className="tag mb-4 block w-fit" style={{ color: "var(--green-deep)", borderColor: "var(--green-deep)" }}>What We Do</span>
-              <h2 className="font-display text-4xl lg:text-5xl font-bold" style={{ color: "var(--charcoal)" }}>
-                Systems built for<br />every environment.
-              </h2>
-            </div>
-          </AnimateIn>
-
-          <div className="flex flex-col">
-            {services.map((svc, i) => (
-              <AnimateIn key={svc.num} variant="fadeUp" delay={i * 0.08}>
-                <Link
-                  href="/services"
-                  className="group flex items-center gap-8 py-8 relative"
-                  style={{ borderTop: "1px solid #e0e0e0" }}
-                >
-                  <span className="ghost-num text-7xl lg:text-8xl absolute left-0 select-none" style={{ fontSize: "clamp(4rem, 8vw, 7rem)" }}>
-                    {svc.num}
-                  </span>
-                  <div className="pl-4 lg:pl-0 flex-1 flex items-center justify-between gap-6">
-                    <div className="lg:ml-28">
-                      <h3 className="font-display text-2xl lg:text-3xl font-bold mb-2 group-hover:text-green-700 transition-colors" style={{ color: "var(--charcoal)" }}>
-                        {svc.title}
-                      </h3>
-                      <p className="text-sm leading-6 max-w-lg" style={{ color: "var(--grey)" }}>{svc.desc}</p>
-                    </div>
-                    <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1" style={{ border: "1px solid var(--green-deep)", color: "var(--green-deep)" }}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                  </div>
-                </Link>
-              </AnimateIn>
-            ))}
-            <div style={{ borderTop: "1px solid #e0e0e0" }} />
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US */}
-      <section className="noise py-24 px-6 lg:px-10 relative overflow-hidden" style={{ background: "var(--charcoal)" }}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-          <AnimateIn variant="slideLeft">
-            <div>
-              <span className="tag mb-6 block w-fit" style={{ color: "var(--green-light)", borderColor: "var(--green-light)" }}>Why Choose Us</span>
-              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white leading-tight mb-8">
-                Local expertise.<br />Nationwide reach.
-              </h2>
-              <ul className="flex flex-col gap-5 mb-10">
-                {whyUs.map((item) => (
-                  <li key={item} className="flex items-start gap-4 text-sm leading-6" style={{ color: "rgba(255,255,255,0.65)" }}>
-                    <span className="flex-shrink-0 w-5 h-5 mt-0.5 flex items-center justify-center rounded-full" style={{ background: "var(--green-deep)" }}>
-                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/about" className="btn-outline-white">About Us →</Link>
-            </div>
-          </AnimateIn>
-
-          <AnimateIn variant="slideRight">
-            <div className="relative h-96 lg:h-[520px]">
+          {/* Right column — brand image */}
+          <div className="lg:col-span-5 relative h-80 lg:h-[600px] flex items-center justify-center">
+            <AnimateIn variant="fadeIn" delay={0.3} className="w-full h-full relative">
               <Image
-                src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80"
-                alt="Commercial building fire safety"
+                src="https://cdn.prod.website-files.com/63dbb705fb1dc0446f72376f/63e3d99f6cb79dbde5ce8b2f_SurturFire%20Black%20_%20Red%201.png"
+                alt="Surtur Fire"
                 fill
-                className="object-cover"
+                style={{ objectFit: "contain" }}
+                priority
               />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(20,20,20,0.6))" }} />
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
-
-      {/* PROJECTS PREVIEW */}
-      <section className="py-24 px-6 lg:px-10" style={{ background: "var(--off-white)" }}>
-        <div className="max-w-7xl mx-auto">
-          <AnimateIn variant="fadeUp">
-            <div className="flex items-end justify-between mb-12">
-              <div>
-                <span className="tag mb-4 block w-fit" style={{ color: "var(--green-deep)", borderColor: "var(--green-deep)" }}>Portfolio</span>
-                <h2 className="font-display text-4xl lg:text-5xl font-bold" style={{ color: "var(--charcoal)" }}>Recent installations.</h2>
-              </div>
-              <Link href="/projects" className="hidden lg:inline-flex btn-outline-green">All Projects →</Link>
-            </div>
-          </AnimateIn>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            {/* Large */}
-            <AnimateIn variant="scaleUp" className="lg:col-span-7">
-              <Link href="/projects" className="group block relative overflow-hidden" style={{ height: "420px" }}>
-                <Image
-                  src={projects[0].img}
-                  alt={projects[0].title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(20,20,20,0.85) 30%, transparent)" }} />
-                <div className="absolute bottom-0 left-0 p-8">
-                  <span className="tag text-white/60 mb-3 block w-fit" style={{ borderColor: "rgba(255,255,255,0.3)" }}>{projects[0].tag}</span>
-                  <h3 className="font-display text-2xl font-bold text-white">{projects[0].title}</h3>
-                  <p className="text-white/50 text-sm mt-1">{projects[0].location}</p>
-                </div>
-              </Link>
             </AnimateIn>
-
-            {/* Stacked small */}
-            <div className="lg:col-span-5 flex flex-col gap-4">
-              {projects.slice(1).map((p, i) => (
-                <AnimateIn key={p.title} variant="slideRight" delay={i * 0.1}>
-                  <Link href="/projects" className="group block relative overflow-hidden" style={{ height: "200px" }}>
-                    <Image
-                      src={p.img}
-                      alt={p.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(20,20,20,0.85) 30%, transparent)" }} />
-                    <div className="absolute bottom-0 left-0 p-6">
-                      <span className="tag text-white/60 mb-2 block w-fit" style={{ borderColor: "rgba(255,255,255,0.3)", fontSize: "0.6rem" }}>{p.tag}</span>
-                      <h3 className="font-display text-lg font-bold text-white">{p.title}</h3>
-                      <p className="text-white/50 text-xs mt-0.5">{p.location}</p>
-                    </div>
-                  </Link>
-                </AnimateIn>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 lg:hidden">
-            <Link href="/projects" className="btn-outline-green w-full justify-center">All Projects →</Link>
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="py-24 px-6 lg:px-10" style={{ background: "var(--green-pale)" }}>
+      {/* ──────────────────────────────────────────
+          SERVICES — 2×2 card grid
+      ────────────────────────────────────────── */}
+      <section className="py-24 px-6 lg:px-10" style={{ background: "#ffffff" }}>
         <div className="max-w-7xl mx-auto">
           <AnimateIn variant="fadeUp">
             <div className="mb-14">
-              <span className="tag mb-4 block w-fit" style={{ color: "var(--green-deep)", borderColor: "var(--green-deep)" }}>Client Reviews</span>
-              <h2 className="font-display text-4xl lg:text-5xl font-bold" style={{ color: "var(--charcoal)" }}>
-                Trusted across the UK.
+              <span
+                className="inline-block text-xs font-bold tracking-widest uppercase mb-4"
+                style={{ color: "#cc2c2c" }}
+              >
+                What We Do
+              </span>
+              <h2 className="text-4xl lg:text-5xl font-bold" style={{ color: "#111111" }}>
+                Our Fire Safety Services
               </h2>
+            </div>
+          </AnimateIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Fire Suppression */}
+            <AnimateIn variant="fadeUp" delay={0.05}>
+              <div className="service-card">
+                <div className="mb-5" style={{ color: "#cc2c2c" }}>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 4C16 4 22 12 22 19C22 22.9 19.3 26 16 26C12.7 26 10 22.9 10 19C10 16 12.5 14 12.5 14C12.5 17 16 18 16.8 16C17.5 19 16 22 13 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: "#111111" }}>Fire Suppression</h3>
+                <p className="text-sm leading-7 mb-5" style={{ color: "#888888" }}>
+                  Gas-based suppression systems precision-engineered to protect IT infrastructure, data centres, and high-value assets without water damage risk.
+                </p>
+                <Link href="/services#suppression" className="text-sm font-bold tracking-wide" style={{ color: "#cc2c2c", textDecoration: "none" }}>
+                  Learn More →
+                </Link>
+              </div>
+            </AnimateIn>
+
+            {/* Fire Detection */}
+            <AnimateIn variant="fadeUp" delay={0.1}>
+              <div className="service-card">
+                <div className="mb-5" style={{ color: "#cc2c2c" }}>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="12" stroke="currentColor" strokeWidth="2" />
+                    <circle cx="16" cy="16" r="5" stroke="currentColor" strokeWidth="2" />
+                    <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: "#111111" }}>Fire Detection</h3>
+                <p className="text-sm leading-7 mb-5" style={{ color: "#888888" }}>
+                  Addressable and conventional detection systems fully compliant with BS 5839 — from single-device installs to complete building-wide networks.
+                </p>
+                <Link href="/services#detection" className="text-sm font-bold tracking-wide" style={{ color: "#cc2c2c", textDecoration: "none" }}>
+                  Learn More →
+                </Link>
+              </div>
+            </AnimateIn>
+
+            {/* Fire Extinguishers */}
+            <AnimateIn variant="fadeUp" delay={0.15}>
+              <div className="service-card">
+                <div className="mb-5" style={{ color: "#cc2c2c" }}>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect x="12" y="10" width="10" height="16" rx="3" stroke="currentColor" strokeWidth="2" />
+                    <path d="M17 6v4M13 6h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M22 12c3 0 4 2 4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M14 18h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: "#111111" }}>Fire Extinguishers</h3>
+                <p className="text-sm leading-7 mb-5" style={{ color: "#888888" }}>
+                  BAFE SP101 certified supply and servicing of all extinguisher types — assessed, installed, and maintained by qualified engineers.
+                </p>
+                <Link href="/services#extinguishers" className="text-sm font-bold tracking-wide" style={{ color: "#cc2c2c", textDecoration: "none" }}>
+                  Learn More →
+                </Link>
+              </div>
+            </AnimateIn>
+
+            {/* Emergency Lighting */}
+            <AnimateIn variant="fadeUp" delay={0.2}>
+              <div className="service-card">
+                <div className="mb-5" style={{ color: "#cc2c2c" }}>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="13" r="6" stroke="currentColor" strokeWidth="2" />
+                    <path d="M13 19l-1 6h8l-1-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                    <path d="M12 25h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M16 4v2M8 6.3l1.4 1.4M4 13h2M24 13h2M22.6 7.7l1.4-1.4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: "#111111" }}>Emergency Lighting</h3>
+                <p className="text-sm leading-7 mb-5" style={{ color: "#888888" }}>
+                  BS 5266 compliant maintained and non-maintained luminaires, central battery systems, and self-test emergency lighting installations.
+                </p>
+                <Link href="/services#lighting" className="text-sm font-bold tracking-wide" style={{ color: "#cc2c2c", textDecoration: "none" }}>
+                  Learn More →
+                </Link>
+              </div>
+            </AnimateIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          STATS ROW
+      ────────────────────────────────────────── */}
+      <section style={{ background: "#111111" }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+            {[
+              { val: "500+", label: "Installations" },
+              { val: "10+", label: "Years Experience" },
+              { val: "100%", label: "BAFE Certified" },
+              { val: "24/7", label: "Support Available" },
+            ].map((stat, i) => (
+              <AnimateIn key={stat.label} variant="fadeUp" delay={i * 0.08}>
+                <div
+                  className="flex flex-col items-center py-10 px-4 text-center"
+                  style={{
+                    borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : "none",
+                  }}
+                >
+                  <span
+                    className="font-bold mb-2"
+                    style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#ffffff", fontFamily: "Inter, sans-serif" }}
+                  >
+                    {stat.val}
+                  </span>
+                  <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#888888" }}>
+                    {stat.label}
+                  </span>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          50/50 IMAGE + TEXT
+      ────────────────────────────────────────── */}
+      <section className="flex flex-col lg:flex-row" style={{ minHeight: "480px" }}>
+        {/* Left: image */}
+        <div className="relative w-full lg:w-1/2" style={{ minHeight: "320px" }}>
+          <Image
+            src="https://cdn.prod.website-files.com/63dbb705fb1dc0446f72376f/640b1f2c44ffd0851b8106c4_SurturFire%20Image.png"
+            alt="Gas suppression system"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+        {/* Right: text */}
+        <div
+          className="w-full lg:w-1/2 flex items-center px-8 lg:px-16 py-16"
+          style={{ background: "#111111" }}
+        >
+          <AnimateIn variant="slideRight">
+            <div style={{ maxWidth: "480px" }}>
+              <span
+                className="inline-block text-xs font-bold tracking-widest uppercase mb-5"
+                style={{ color: "#cc2c2c" }}
+              >
+                Fire Suppression
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+                Safeguarding Critical Infrastructure
+              </h2>
+              <p className="text-base leading-8 mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
+                Our gas-based suppression systems are designed for environments where water-based solutions
+                pose risks to sensitive equipment. From FM200 to inert gas, we engineer solutions that
+                respond in seconds and leave no residue.
+              </p>
+              <Link href="/services#suppression" className="btn-red">
+                Learn More
+              </Link>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          WHY CHOOSE US
+      ────────────────────────────────────────── */}
+      <section className="py-24 px-6 lg:px-10" style={{ background: "#f4f4f4" }}>
+        <div className="max-w-7xl mx-auto">
+          <AnimateIn variant="fadeUp">
+            <div className="text-center mb-14">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-4" style={{ color: "#111111" }}>
+                Why Choose Surtur Fire?
+              </h2>
+              <p className="text-base" style={{ color: "#888888" }}>
+                Experience, certification, and commitment — on every job.
+              </p>
+            </div>
+          </AnimateIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="2" />
+                    <path d="M9 14l3.5 3.5 6.5-6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ),
+                title: "BAFE Certified Engineers",
+                desc: "Every engineer holds current BAFE certification — the gold standard in fire safety competence. No exceptions.",
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <rect x="4" y="6" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="2" />
+                    <path d="M4 11h20" stroke="currentColor" strokeWidth="2" />
+                    <path d="M9 17h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                ),
+                title: "Free Site Survey",
+                desc: "No-obligation assessment of your premises by an expert engineer. We assess, advise, and quote — at no cost.",
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="2" />
+                    <path d="M14 3v11M14 3c-3.5 2.5-5 6-5 11M14 3c3.5 2.5 5 6 5 11M3 14h22" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                ),
+                title: "UK-Wide Coverage",
+                desc: "Based in Northampton with engineers operating across the entire United Kingdom. Wherever you are, we&apos;ll come to you.",
+              },
+            ].map((item, i) => (
+              <AnimateIn key={item.title} variant="fadeUp" delay={i * 0.1}>
+                <div className="bg-white p-8" style={{ borderTop: "3px solid #cc2c2c" }}>
+                  <div className="mb-5" style={{ color: "#cc2c2c" }}>
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-bold mb-3" style={{ color: "#111111" }}>{item.title}</h3>
+                  <p className="text-sm leading-7" style={{ color: "#888888" }}
+                    dangerouslySetInnerHTML={{ __html: item.desc }}
+                  />
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          CERTIFICATIONS
+      ────────────────────────────────────────── */}
+      <section className="py-20 px-6 lg:px-10" style={{ background: "#111111" }}>
+        <div className="max-w-5xl mx-auto text-center">
+          <AnimateIn variant="fadeUp">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-12">
+              Proud to be Certified
+            </h2>
+          </AnimateIn>
+          <AnimateIn variant="fadeUp" delay={0.1}>
+            <div className="flex flex-wrap justify-center gap-4">
+              {["BAFE", "FIA", "Safe Contractor", "LPCG"].map((cert) => (
+                <div key={cert} className="cert-box" style={{ minWidth: "140px" }}>
+                  {cert}
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────
+          TESTIMONIALS
+      ────────────────────────────────────────── */}
+      <section className="py-24 px-6 lg:px-10" style={{ background: "#ffffff" }}>
+        <div className="max-w-7xl mx-auto">
+          <AnimateIn variant="fadeUp">
+            <div className="mb-14">
+              <h2 className="text-4xl lg:text-5xl font-bold" style={{ color: "#111111" }}>
+                Stay Protected with Surtur Fire
+              </h2>
+              <p className="mt-3 text-base" style={{ color: "#888888" }}>
+                Trusted by clients across the UK.
+              </p>
             </div>
           </AnimateIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <AnimateIn key={t.name} variant="fadeUp" delay={i * 0.1}>
-                <div className="p-8 flex flex-col justify-between h-full" style={{ background: "white", borderTop: "3px solid var(--green-deep)" }}>
-                  <div>
-                    {/* Stars */}
-                    <div className="flex gap-1 mb-6">
-                      {[...Array(5)].map((_, s) => (
-                        <svg key={s} width="14" height="14" viewBox="0 0 14 14" fill="var(--green-deep)">
-                          <path d="M7 1l1.8 3.6L13 5.2l-3 2.9.7 4.1L7 10.1l-3.7 2.1.7-4.1-3-2.9 4.2-.6z"/>
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="text-sm leading-7 italic" style={{ color: "var(--grey)" }}>&ldquo;{t.text}&rdquo;</p>
+                <div
+                  className="p-8 flex flex-col h-full"
+                  style={{
+                    background: "#f4f4f4",
+                    border: "1px solid #e5e5e5",
+                  }}
+                >
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-5">
+                    {[...Array(5)].map((_, s) => (
+                      <span key={s} style={{ color: "#cc2c2c", fontSize: "1.1rem" }}>★</span>
+                    ))}
                   </div>
-                  <div className="mt-6 pt-6" style={{ borderTop: "1px solid #eee" }}>
-                    <div className="font-semibold text-sm" style={{ color: "var(--charcoal)" }}>{t.name}</div>
-                    <div className="text-xs mt-0.5" style={{ color: "var(--grey-light)" }}>{t.role}</div>
+                  <p className="text-sm leading-7 flex-1 italic" style={{ color: "#555555" }}>
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                  <div className="mt-6 pt-5" style={{ borderTop: "1px solid #e0e0e0" }}>
+                    <div className="font-bold text-sm" style={{ color: "#111111" }}>{t.name}</div>
+                    <div className="text-xs mt-0.5" style={{ color: "#888888" }}>{t.location}</div>
                   </div>
                 </div>
               </AnimateIn>
@@ -326,10 +416,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* LEAD CAPTURE */}
+      {/* ──────────────────────────────────────────
+          LEAD CAPTURE
+      ────────────────────────────────────────── */}
       <LeadCaptureBanner
-        title="Ready to protect your premises?"
-        subtitle="Book a free site survey — our BAFE-certified engineers will assess and recommend the right fire safety systems for your building."
+        title="Is your building fire-safe?"
+        subtitle="Book a free site survey today — our BAFE-certified engineers will assess and advise on the right fire safety systems for your building."
       />
     </>
   );

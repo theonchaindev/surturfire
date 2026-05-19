@@ -1,35 +1,15 @@
 "use client";
-
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const variants: Record<string, Variants> = {
-  fadeUp:     { hidden: { opacity: 0, y: 24 },       visible: { opacity: 1, y: 0 } },
-  fadeIn:     { hidden: { opacity: 0 },               visible: { opacity: 1 } },
-  slideLeft:  { hidden: { opacity: 0, x: -32 },      visible: { opacity: 1, x: 0 } },
-  slideRight: { hidden: { opacity: 0, x: 32 },       visible: { opacity: 1, x: 0 } },
-  scaleUp:    { hidden: { opacity: 0, scale: 0.96 }, visible: { opacity: 1, scale: 1 } },
-};
-
-interface Props {
-  children: React.ReactNode;
-  variant?: keyof typeof variants;
-  delay?: number;
-  duration?: number;
-  className?: string;
-}
-
-export default function AnimateIn({ children, variant = "fadeUp", delay = 0, duration = 0.5, className }: Props) {
+export default function AnimateIn({ children, delay = 0, className, style }: { children: React.ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={variants[variant]}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+    <motion.div ref={ref} className={className} style={style}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+      transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

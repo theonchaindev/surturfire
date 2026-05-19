@@ -39,7 +39,7 @@ const projects = [
     location: "Leicester",
     category: "Emergency Lighting",
     image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=85",
-    desc: "Complete BS 5266 compliant emergency lighting across 40+ classrooms, corridors, and common areas. Self-test technology throughout.",
+    desc: "Complete BS 5266 compliant emergency lighting across 40+ classrooms, corridors, and common areas.",
     large: true,
   },
   {
@@ -47,7 +47,7 @@ const projects = [
     location: "Northampton",
     category: "Fire Extinguishers",
     image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=85",
-    desc: "Full risk assessment, supply, and BAFE certified annual service contract for a busy commercial kitchen and dining area.",
+    desc: "Full risk assessment, supply, and BAFE certified annual service contract for a commercial kitchen.",
     large: false,
   },
   {
@@ -63,7 +63,7 @@ const projects = [
     location: "Nottingham",
     category: "Fire Suppression",
     image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=900&q=85",
-    desc: "Large-scale inert gas suppression protecting an automated warehouse with £4M+ of high-value stock and robotics.",
+    desc: "Large-scale inert gas suppression protecting an automated warehouse with £4M+ of high-value stock.",
     large: true,
   },
 ];
@@ -72,65 +72,47 @@ export default function ProjectsPage() {
   return (
     <>
       {/* Hero */}
-      <section style={{ background: "var(--bg-dark)", paddingTop: "140px", paddingBottom: "80px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 30%, rgba(220,38,38,0.05) 0%, transparent 60%)" }} />
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative" style={{ zIndex: 1 }}>
+      <section style={{ background: "var(--black)", paddingTop: "140px", paddingBottom: "80px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 32px" }}>
           <AnimateIn>
-            <p className="eyebrow" style={{ marginBottom: "20px" }}>Our Portfolio</p>
-            <h1 className="display" style={{ color: "#fff", marginBottom: "20px" }}>
+            <p className="label" style={{ color: "rgba(255,255,255,0.4)", marginBottom: "20px" }}>Our Portfolio</p>
+            <h1 style={{ fontSize: "clamp(3rem, 7vw, 6rem)", fontWeight: 900, lineHeight: 1, letterSpacing: "-0.04em", color: "#fff", marginBottom: "24px" }}>
               Installations.
             </h1>
-            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.75, maxWidth: "500px" }}>
+            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.75, maxWidth: "500px" }}>
               A selection of completed fire safety projects across the UK — from data centres to schools, warehouses to hospitals.
             </p>
           </AnimateIn>
         </div>
       </section>
 
-      {/* Projects grid */}
-      <section style={{ background: "var(--bg-soft)", padding: "80px 0" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+      {/* Grid */}
+      <section style={{ background: "var(--soft)", padding: "80px 0" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 32px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "20px" }}>
             {projects.map((project, i) => (
               <AnimateIn
                 key={i}
-                className={project.large ? "md:col-span-7" : "md:col-span-5"}
                 delay={(i % 3) * 0.07}
-                variant="fadeUp"
+                style={{ gridColumn: project.large ? "span 7" : "span 5" } as React.CSSProperties}
               >
-                <div className="card" style={{ overflow: "hidden", height: "100%" }}>
-                  {/* Image */}
+                <div style={{ background: "#fff", overflow: "hidden", height: "100%" }}>
                   <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden" }}>
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                      style={{ transition: "transform 0.5s ease" }}
-                    />
+                    <Image src={project.image} alt={project.title} fill style={{ objectFit: "cover" }} />
                     <div style={{ position: "absolute", top: "14px", left: "14px" }}>
-                      <span style={{
-                        fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.08em",
-                        textTransform: "uppercase", padding: "4px 10px",
-                        background: "rgba(9,9,9,0.8)", backdropFilter: "blur(8px)",
-                        borderRadius: "3px", color: "rgba(255,255,255,0.7)",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                      }}>
+                      <span style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" as const, padding: "4px 10px", background: "rgba(10,10,10,0.85)", backdropFilter: "blur(8px)", color: "rgba(255,255,255,0.8)" }}>
                         {project.category}
                       </span>
                     </div>
                   </div>
-                  {/* Content */}
                   <div style={{ padding: "24px" }}>
-                    <p style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--red)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
+                    <p style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--red)", letterSpacing: "0.08em", textTransform: "uppercase" as const, marginBottom: "6px" }}>
                       {project.location}
                     </p>
-                    <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--ink)", marginBottom: "8px", letterSpacing: "-0.01em" }}>
+                    <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--black)", marginBottom: "8px", letterSpacing: "-0.01em" }}>
                       {project.title}
                     </h3>
-                    <p style={{ fontSize: "0.845rem", color: "var(--ink-3)", lineHeight: 1.7 }}>
-                      {project.desc}
-                    </p>
+                    <p style={{ fontSize: "0.845rem", color: "var(--grey)", lineHeight: 1.7 }}>{project.desc}</p>
                   </div>
                 </div>
               </AnimateIn>
@@ -140,19 +122,19 @@ export default function ProjectsPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "#fff", padding: "80px 0", borderBottom: "1px solid var(--border)" }}>
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+      <section style={{ background: "#fff", padding: "80px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+        <div style={{ maxWidth: "640px", margin: "0 auto", padding: "0 32px", textAlign: "center" }}>
           <AnimateIn>
-            <p className="eyebrow" style={{ marginBottom: "16px", justifyContent: "center" }}>Get Started</p>
-            <h2 className="heading-lg" style={{ color: "var(--ink)", marginBottom: "16px" }}>
+            <p className="label" style={{ marginBottom: "16px", justifyContent: "center" }}>Get Started</p>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 800, color: "var(--black)", letterSpacing: "-0.03em", marginBottom: "16px" }}>
               Your premises could be next.
             </h2>
-            <p style={{ fontSize: "0.95rem", color: "var(--ink-3)", lineHeight: 1.75, marginBottom: "32px" }}>
+            <p style={{ fontSize: "0.95rem", color: "var(--grey)", lineHeight: 1.75, marginBottom: "32px" }}>
               Every installation starts with a free site survey. Tell us about your building and we&apos;ll recommend the right systems.
             </p>
             <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-              <Link href="/quote" className="btn btn-primary" style={{ fontSize: "0.9rem" }}>Get Free Survey →</Link>
-              <Link href="/contact" className="btn btn-secondary" style={{ fontSize: "0.9rem" }}>Contact Us</Link>
+              <Link href="/quote" className="btn-red">Get Free Survey →</Link>
+              <Link href="/contact" className="btn-outline">Contact Us</Link>
             </div>
           </AnimateIn>
         </div>

@@ -1,89 +1,55 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const services = [
-    { label: "Fire Suppression", href: "/services#suppression" },
-    { label: "Fire Detection", href: "/services#detection" },
-    { label: "Fire Extinguishers", href: "/services#extinguishers" },
-    { label: "Emergency Lighting", href: "/services#lighting" },
-  ];
-  const company = [
-    { label: "About Us", href: "/about" },
-    { label: "Projects", href: "/projects" },
-    { label: "Get a Quote", href: "/quote" },
-    { label: "Contact", href: "/contact" },
-  ];
-
   return (
-    <footer style={{ background: "#090909", color: "#fff" }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+    <footer style={{ background: "var(--black)", color: "#fff" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 32px" }}>
 
-          {/* Brand */}
+        {/* Top */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "48px", padding: "64px 0 48px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
-              <div style={{ width: "32px", height: "32px", borderRadius: "6px", background: "var(--red)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 1.5C8 1.5 11.5 5.5 11.5 8.5C11.5 10.8 10 12.5 8 12.5C6 12.5 4.5 10.8 4.5 8.5C4.5 7 5.5 6 5.5 6C5.5 7.5 7.5 8.2 8 7C8.5 9 7.5 10.5 6.5 10.5" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.02em" }}>
-                Surtur<span style={{ color: "var(--red)" }}>Fire</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "9px", marginBottom: "20px" }}>
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect width="28" height="28" fill="var(--red)"/>
+                <path d="M14 4C14 4 19 9.5 19 14.5C19 17.5 17 20 14 20C11 20 9 17.5 9 14.5C9 12.5 10.5 11 10.5 11C10.5 13.5 13.5 14 14 12.5C14.5 15 13 17 11.5 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span style={{ fontWeight: 800, fontSize: "0.95rem", letterSpacing: "-0.02em" }}>
+                SURTUR<span style={{ color: "var(--red)" }}>FIRE</span>
               </span>
             </div>
-            <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.75, marginBottom: "20px" }}>
-              BAFE-certified fire safety specialists protecting people and businesses across the UK.
+            <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "16px" }}>
+              BAFE-certified fire safety specialists protecting businesses across the UK.
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              <a href="tel:+447843841219" style={{ fontSize: "0.825rem", color: "rgba(255,255,255,0.45)", textDecoration: "none" }}>+44 7843 841219</a>
-              <a href="mailto:sales@surturfire.com" style={{ fontSize: "0.825rem", color: "rgba(255,255,255,0.45)", textDecoration: "none" }}>sales@surturfire.com</a>
-              <span style={{ fontSize: "0.825rem", color: "rgba(255,255,255,0.3)" }}>22–24 Harborough Road, Northampton, NN2 7AZ</span>
-            </div>
+            <a href="tel:+447843841219" style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "rgba(255,255,255,0.7)", marginBottom: "4px" }}>+44 7843 841219</a>
+            <a href="mailto:sales@surturfire.com" style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.4)" }}>sales@surturfire.com</a>
           </div>
 
-          {/* Services */}
           <div>
-            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "18px" }}>Services</p>
-            <ul style={{ display: "flex", flexDirection: "column", gap: "12px", listStyle: "none" }}>
-              {services.map((s) => (
-                <li key={s.label}>
-                  <Link href={s.href} style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.45)", textDecoration: "none" }}>{s.label}</Link>
-                </li>
-              ))}
-            </ul>
+            <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "16px" }}>Services</p>
+            {["Fire Suppression", "Fire Detection", "Fire Extinguishers", "Emergency Lighting"].map(s => (
+              <Link key={s} href="/services" style={{ display: "block", fontSize: "0.85rem", color: "rgba(255,255,255,0.45)", marginBottom: "10px" }}>{s}</Link>
+            ))}
           </div>
 
-          {/* Company */}
           <div>
-            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "18px" }}>Company</p>
-            <ul style={{ display: "flex", flexDirection: "column", gap: "12px", listStyle: "none" }}>
-              {company.map((c) => (
-                <li key={c.label}>
-                  <Link href={c.href} style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.45)", textDecoration: "none" }}>{c.label}</Link>
-                </li>
-              ))}
-            </ul>
+            <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "16px" }}>Company</p>
+            {[["About", "/about"], ["Projects", "/projects"], ["Contact", "/contact"], ["Get a Quote", "/quote"]].map(([label, href]) => (
+              <Link key={href} href={href} style={{ display: "block", fontSize: "0.85rem", color: "rgba(255,255,255,0.45)", marginBottom: "10px" }}>{label}</Link>
+            ))}
           </div>
 
-          {/* Accreditations */}
           <div>
-            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "18px" }}>Accreditations</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {["BAFE", "FIA", "Safe Contractor", "LPCG"].map((cert) => (
-                <span key={cert} style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "5px 10px", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "4px", color: "rgba(255,255,255,0.4)" }}>
-                  {cert}
-                </span>
-              ))}
-            </div>
-            <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.2)", marginTop: "20px", lineHeight: 1.6 }}>
-              Co. No. 14030343<br />VAT No. 410913924
-            </p>
+            <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "16px" }}>Certified By</p>
+            {["BAFE", "FIA", "Safe Contractor", "LPCG"].map(c => (
+              <p key={c} style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.45)", marginBottom: "10px" }}>{c}</p>
+            ))}
           </div>
         </div>
 
-        <div className="py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.2)" }}>© {new Date().getFullYear()} Surtur Fire Ltd. All rights reserved.</p>
-          <p style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.15)" }}>Northampton, UK</p>
+        <div style={{ padding: "20px 0", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
+          <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.2)" }}>© {new Date().getFullYear()} Surtur Fire Ltd · Co. 14030343 · VAT 410913924</p>
+          <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.15)" }}>22–24 Harborough Road, Northampton NN2 7AZ</p>
         </div>
       </div>
     </footer>
